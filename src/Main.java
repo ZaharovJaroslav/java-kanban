@@ -12,6 +12,7 @@ public class Main {
         taskManage.addTask(task1);
         Task task2 = new Task("Задача 2", "тут описание 2","");
         taskManage.addTask(task2);
+        taskManage.getTaskbyId(0);
         taskManage.deleteTaskById(2);
         System.out.println(taskManage.getTask());
 
@@ -19,17 +20,16 @@ public class Main {
         taskManage.addEpic(epic1);
         SubTask subTask11 = new SubTask("подзадача 1", "Описание подзадачи 1", "DONE", epic1);
         taskManage.addSubTask(subTask11);
-        taskManage.StatusEpic(epic1);
-        SubTask subTask22 = new SubTask("подзадача 2", "Описание подзадачи 2", "NEW", epic1);
-        taskManage.addSubTask(subTask22);
-        taskManage.StatusEpic(epic1);
-        taskManage.deleteSubTaskById(4);
+        SubTask subTask12 = new SubTask("подзадача 12", "Описание подзадачи 12", "NEW", epic1);
+        taskManage.addSubTask(subTask12);
 
         Epic epic2 = new Epic("Епик 2,", "Описание епика 2", "");
         taskManage.addEpic(epic2);
         SubTask subTask21 = new SubTask("подзадача 21", "Описание подзадачи 21", "DONE", epic1);
         taskManage.addSubTask(subTask21);
-        taskManage.StatusEpic(epic2);
+
+        taskManage.deleteSubTask();
+        taskManage.deleteEpicById(2);
         System.out.println(taskManage.getSubTask());
         System.out.println(taskManage.getEpic());
     }

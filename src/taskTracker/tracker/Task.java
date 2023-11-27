@@ -11,25 +11,25 @@ public class Task {
         this.taskStatus = taskStatus;
     }
 
-    public void setTaskName(String taskName) {
+    public void setName(String taskName) {
         this.taskName = taskName;
     }
 
-    public String getTaskName() {
+    public String getName() {
         return taskName;
     }
 
-    public void setTaskDescription(String taskDescription) {
+    public void setDescription(String taskDescription) {
         this.taskDescription = taskDescription;
     }
 
-    public String getTaskDescription(){
+    public String getDescription(){
         return taskDescription;
     }
     public String getTaskStatus() {
         return taskStatus;
     }
-     public void setTaskStatus(String taskStatus) {
+     public void setStatus(String taskStatus) {
         this.taskStatus = taskStatus;
 
      }
