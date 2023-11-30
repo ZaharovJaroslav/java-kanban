@@ -1,6 +1,9 @@
-package taskTracker.tracker;
+package taskTracker.tracker.model;
 
 public class Task {
+
+
+    private int taskID;
     private String taskName;
     private String taskDescription;
     private String taskStatus;
@@ -9,6 +12,20 @@ public class Task {
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
+    }
+
+    public int getTaskID() {
+        return taskID;
+    }
+
+    public Task(int taskID, String taskName, String taskDescription) {
+        this.taskID = taskID;
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+
+    }
+    public void setTaskID(int taskID) {
+        this.taskID = taskID;
     }
 
     public void setName(String taskName) {

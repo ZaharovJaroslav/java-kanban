@@ -1,7 +1,8 @@
-package taskTracker.tracker;
+package taskTracker.tracker.model;
+
 import java.util.ArrayList;
 
-public class Epic extends Task{
+public class Epic extends Task {
     private ArrayList <Integer>subTasksIds;
 
     public Epic(String epicName, String epicDescription, String epicStatus) {
@@ -9,11 +10,17 @@ public class Epic extends Task{
        subTasksIds = new ArrayList<>();
     }
 
+    public Epic(int taskID, String taskName, String taskDescription) {
+        super(taskID, taskName, taskDescription);
+        this.subTasksIds = new ArrayList<>();
+
+    }
+
     public ArrayList<Integer> getsubTasksIds() {
         return subTasksIds;
 
     }
-    public void setSubEpicID(ArrayList<Integer>subTasksIds) {
+    public void setSubEpicIds(ArrayList<Integer>subTasksIds) {
         this.subTasksIds = getsubTasksIds();
     }
 
