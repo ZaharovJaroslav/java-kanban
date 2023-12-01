@@ -16,7 +16,8 @@ public class Main {
         Task task2 = new Task("Задача 12", "тут описание 2","");
         taskManage.addTask(task2);
 
-        taskManage.getTaskbyId(1);
+
+        taskManage.getTaskbyId(2);
         taskManage.updateTask(new Task(1,"Новая задача", "Описание новой Задачи"));
         taskManage.deleteTaskById(0);
         System.out.println(taskManage.getTasks());
@@ -35,10 +36,10 @@ public class Main {
         SubTask subTask21 = new SubTask("подзадача 21", "Описание подзадачи 21", "DONE", epic2);
         taskManage.addSubTask(subTask21);
 
-        taskManage.getEpicbyId(2);
+        taskManage.getEpicbyId(7);
         taskManage.getsEpicSubtasks(epic1);
         taskManage.updateEpic(new Epic(2,"Новый Эпик", "Меняем Эпик на новый" ));
-        taskManage.deleteEpicById(0);
+        taskManage.deleteEpicById(2);
         System.out.println(taskManage.getSubTasks());
         System.out.println(taskManage.getEpics());
     }

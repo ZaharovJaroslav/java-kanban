@@ -6,7 +6,7 @@ import taskTracker.tracker.model.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+// СПАСИБО=)
 
 public class TaskManager {
     protected static int taskID;
@@ -52,8 +52,6 @@ public class TaskManager {
     }
 
     public Task getTaskbyId(int taskID) { // получить задачу по id
-        Task task = null;
-
         if(tasks.containsKey(taskID)){
             task = tasks.get(taskID);
         }
@@ -95,8 +93,6 @@ public class TaskManager {
     }
 
     public Epic getEpicbyId (int taskID) { // вывести эпик по id
-        Epic epic = null;
-
         if(epics.containsKey(taskID)){
             epic = epics.get(taskID);
         }
@@ -113,18 +109,15 @@ public class TaskManager {
 
     public void updateEpic(Epic epic) { // обновить Эпик новым Эпиком
         int id = epic.getTaskID();
-        Epic ep = epics.get(id);
-        for(Integer i : ep.getsubTasksIds()){
-          subTasks.remove(i);
-        }
-        epics.put(id, epic);
-        computeEpicStatus(epic);
+        Epic epicToUpdate = epics.get(id);
+        epicToUpdate.setName(epic.getName());
+        epicToUpdate.setDescription(epic.getDescription());
     }
 
    public boolean deleteEpicById(int taskID) { // удалить Эпик по id,а так же его подзадачи
         if (epics.containsKey(taskID)){
             Epic epic = epics.get(taskID);
-            epic.getsubTasksIds().clear();
+            epic.clearSubtasks(epic.getsubTasksIds());
         }
                 epics.remove(taskID);
                 return true;
@@ -151,14 +144,7 @@ public class TaskManager {
         }
     }
 
-
-    // РАБОТА С ПОДЗАДАЧАМИ
-
-
     public void addSubTask(SubTask subTask) { // добавить новую подзадачу.
-        /*Если я првильно понял, нужно создать список и туда сохронять копию, и с этой копией уже делать
-        все что нам необходимо
-*/      ArrayList<Integer> clonedList = new ArrayList<>();
         int id = generateId();
 
         if (subTask.getTaskStatus().isEmpty()) {
@@ -166,10 +152,8 @@ public class TaskManager {
         }
         subTasks.put(id, subTask);
         Epic epic = subTask.getEpicID();
-        clonedList = epic.getsubTasksIds();
-        clonedList.add(id);
+        epic.addSubtask(id);
         computeEpicStatus(epic);
-
     }
 
     public ArrayList<SubTask> getSubTasks() {
@@ -187,8 +171,6 @@ public class TaskManager {
     }
 
     public SubTask getSubTaskbyId(int taskID) { // вывести подзадачу по id
-        SubTask Subtask = null;
-
         if(subTasks.containsKey(taskID)){
             subTask = subTasks.get(taskID);
         }
