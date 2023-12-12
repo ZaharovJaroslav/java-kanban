@@ -20,9 +20,12 @@ public class InMemoryTaskManager implements TaskManager {
     HashMap<Integer, Task> tasks = new HashMap<>();
     HashMap<Integer, SubTask> subTasks = new HashMap<>();
     HashMap<Integer, Epic> epics = new HashMap<>();
-    private final HistoryManager  historyManager = new InMemoryHistoryManager();
 
+    private InMemoryHistoryManager historyManager;
 
+    public InMemoryTaskManager() {
+        this.historyManager = new InMemoryHistoryManager();
+    }
 
     private int generateId() {
         return taskID ++;

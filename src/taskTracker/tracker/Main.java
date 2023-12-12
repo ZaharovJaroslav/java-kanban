@@ -7,12 +7,7 @@ import taskTracker.tracker.model.TaskStatus;
 import taskTracker.tracker.service.*;
 
 public class Main {
-/*
-  managers.getDefaultHistory(); - Не могу понять, почему мы не можем таким образом получить список.
-  System.out.println(  managers.getDefaultHistory()); но можем получить в виде строки.
-  Заранее спасибо)
 
- */
 
     public static void main(String[] args) {
         Managers managers = new Managers();
@@ -46,7 +41,7 @@ public class Main {
         taskManage.getTaskbyId(1);
         taskManage.getEpicbyId(2);
 
-        System.out.println(  managers.getDefaultHistory());
+        System.out.println(managers.getDefaultHistory());
          managers.getDefaultHistory();
 
 
