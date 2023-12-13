@@ -23,8 +23,10 @@ public class InMemoryTaskManager implements TaskManager {
 
     private InMemoryHistoryManager historyManager;
 
-    public InMemoryTaskManager() {
-        this.historyManager = new InMemoryHistoryManager();
+
+
+    public InMemoryTaskManager(InMemoryHistoryManager historyManager) {
+        this.historyManager = historyManager;
     }
 
     private int generateId() {

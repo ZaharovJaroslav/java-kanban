@@ -7,10 +7,10 @@ import java.util.List;
 public class Managers {
 
     public static TaskManager getDefault() {
-        return new InMemoryTaskManager();
+        return new InMemoryTaskManager( new InMemoryHistoryManager());
     }
 
-    public static List<Task> getDefaultHistory() {
-        return new InMemoryHistoryManager().getHistory();
+    public static HistoryManager getDefaultHistory() {
+        return new InMemoryHistoryManager();
     }
 }
