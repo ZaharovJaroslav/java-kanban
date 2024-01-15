@@ -4,7 +4,7 @@ import java.util.List;
 //интерфейс для управления историей просмотров
 public interface HistoryManager {
 
-    public void linkLast(Task task);
+    public void add(Task task);
     public void remove (int id);
     public List<Task> getHistory();
 

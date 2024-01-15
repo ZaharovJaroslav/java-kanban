@@ -1,22 +1,24 @@
 package taskTracker.tracker.service;
-
-import taskTracker.tracker.model.Node;
 import taskTracker.tracker.model.Task;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.ArrayList;
 
-import java.util.*;
 
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    private static List<Task> customLinkedList = new LinkedList<>();
-    private static Map <Integer,Node<Task>> custemMap = new HashMap<>();
+    private List<Task> customLinkedList = new LinkedList<>();
+    private Map<Integer,Node<Task>> custemMap = new HashMap<>();
     private static List<Task> taskHistory = new ArrayList<>();
     private Node<Task> head;
     private Node<Task> tail;
 
 
 @Override
-    public void  linkLast(Task task ) {
+    public void  add(Task task ) {
     Node<Task> newNode = new Node<>(task);
     if (customLinkedList.isEmpty()) {
         customLinkedList.add(task);
@@ -32,19 +34,16 @@ public class InMemoryHistoryManager implements HistoryManager {
         tail = newNode;
         custemMap.put(task.getTaskID(), newNode);
     } else {
-            if (custemMap.containsKey(task.getTaskID())) {
-                 int idTask = task.getTaskID();
-                Node<Task> node = custemMap.get(task.getTaskID());
-                removeNode(node);
+        int idTask = task.getTaskID();
+        Node<Task> node = custemMap.get(task.getTaskID());
+        removeNode(node);
+        customLinkedList.add(task);
+        taskHistory = customLinkedList;
+        tail.next = newNode;
+        newNode.prev = tail;
+        tail = newNode;
+        custemMap.put(task.getTaskID(), newNode);
 
-                custemMap.remove(idTask);
-                customLinkedList.add(task);
-                taskHistory = customLinkedList;
-                tail.next = newNode;
-                newNode.prev = tail;
-                tail = newNode;
-                custemMap.put(task.getTaskID(), newNode);
-            }
         }
     }
 

@@ -62,7 +62,7 @@ public class InMemoryTaskManager implements TaskManager {
     public Task getTaskbyId(int taskID) { // получить задачу по id
         if(tasks.containsKey(taskID)){
             task = tasks.get(taskID);
-            historyManager.linkLast(task);
+            historyManager.add(task);
         }
         return task;
     }
@@ -105,7 +105,7 @@ public class InMemoryTaskManager implements TaskManager {
     public Epic getEpicbyId (int taskID) { // вывести эпик по id
         if(epics.containsKey(taskID)){
             epic = epics.get(taskID);
-            historyManager.linkLast(epic);
+            historyManager.add(epic);
         }
         return epic;
     }
@@ -197,7 +197,7 @@ public class InMemoryTaskManager implements TaskManager {
     public SubTask getSubTaskbyId(int taskID) { // вывести подзадачу по id
         if(subTasks.containsKey(taskID)){
             subTask = subTasks.get(taskID);
-            historyManager.linkLast(subTask);
+            historyManager.add(subTask);
         }
         return subTask;
 
