@@ -5,7 +5,6 @@ import taskTracker.tracker.model.Task;
 import taskTracker.tracker.model.TaskStatus;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,7 +18,6 @@ public class InMemoryTaskManager implements TaskManager {
     HashMap<Integer, Task> tasks = new HashMap<>();
     HashMap<Integer, SubTask> subTasks = new HashMap<>();
     HashMap<Integer, Epic> epics = new HashMap<>();
-
     private InMemoryHistoryManager historyManager;
 
 
@@ -223,5 +221,9 @@ public class InMemoryTaskManager implements TaskManager {
             historyManager.remove(taskID);
         }
         return true;
+    }
+    @Override
+   public List<Task> getHistori(){
+        return historyManager.getHistory();
     }
 }

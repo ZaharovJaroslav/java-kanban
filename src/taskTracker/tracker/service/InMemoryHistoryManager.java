@@ -4,97 +4,83 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.ArrayList;
 
 
 
 public class InMemoryHistoryManager implements HistoryManager {
-
-    private List<Task> customLinkedList = new LinkedList<>();
     private Map<Integer,Node<Task>> custemMap = new HashMap<>();
-    private static List<Task> taskHistory = new ArrayList<>();
     private Node<Task> head;
     private Node<Task> tail;
 
 
 @Override
     public void  add(Task task ) {
-    Node<Task> newNode = new Node<>(task);
-    if (customLinkedList.isEmpty()) {
-        customLinkedList.add(task);
-        head = newNode;
-        tail = newNode;
-        custemMap.put(task.getTaskID(), newNode);
-        taskHistory = customLinkedList;
-    } else if (!customLinkedList.isEmpty() && !custemMap.containsKey(task.getTaskID())) {
-        customLinkedList.add(task);
-        taskHistory = customLinkedList;
-        tail.next = newNode;
-        newNode.prev = tail;
-        tail = newNode;
-        custemMap.put(task.getTaskID(), newNode);
-    } else {
-        int idTask = task.getTaskID();
-        Node<Task> node = custemMap.get(task.getTaskID());
-        removeNode(node);
-        customLinkedList.add(task);
-        taskHistory = customLinkedList;
-        tail.next = newNode;
-        newNode.prev = tail;
-        tail = newNode;
-        custemMap.put(task.getTaskID(), newNode);
-
-        }
+    remove(task.getTaskID());
+    linkLast(task);
     }
-
-
-    public void removeNode(Node<Task> node){
-        if(node == head){
-            removeFirst(node);
-        } else if(node == tail){
-            removeLast(node);
-        } else {
-            customLinkedList.remove(node.data);
-            node.prev.next = node.next;
-            node.next.prev = node.prev;
-        }
-    }
-
-
-    public void removeFirst(Node <Task> data){
-        if(head.next == null){
-            tail = null;
-            customLinkedList.remove(head.data);
-        } else {
-            customLinkedList.remove(head.data);
-            head.next.prev = null;
-            head = head.next;
-        }
-    }
-    public void removeLast(Node <Task> data){
-        if(head.next == null){
-            tail = null;
-        } else {
-            customLinkedList.remove(tail.data);
-            tail.prev.next = null;
-            tail = tail.prev;
-        }
-    }
-
 
     @Override
     public void remove(int id){
-        if (custemMap.containsKey(id)) {
-            Node <Task> node = custemMap.get(id);
-            removeNode(node);
-            taskHistory = customLinkedList;
-            custemMap.remove(id);
+       if (custemMap.containsKey(id)) {
+            removeNode(id);
         }
     }
 
+    private void removeNode(int id){
+        final Node <Task> node = custemMap.get(id);
+        if(node == head){
+            removeFirst(node);
+            custemMap.remove(id);
+        } else if(node == tail){
+            removeLast(node);
+            custemMap.remove(id);
+        } else {
+            custemMap.remove(id);
+            node.getPrev().setNext(node.getNext());
+            node.getNext().setPrev(node.getPrev());
+        }
+    }
+
+    public void removeFirst(Node <Task> node){
+        if(head.getNext() == null){
+        } else {
+            head.getNext().setPrev(null);
+            head = head.getNext();
+        }
+    }
+
+    public void removeLast(Node <Task> node){
+        tail.getPrev().setNext(null);
+        tail = tail.getPrev();
+    }
+
+    private void linkLast(Task task){
+        final Node <Task> oldTail = tail;
+        final Node<Task> newNode = new Node<>(task,null, tail);;
+        tail = newNode;
+
+        custemMap.put(task.getTaskID(), newNode);
+        if(oldTail == null) {
+            head = newNode;
+        } else {
+            oldTail.setNext(tail);
+        }
+    }
+
+    private List<Task> getTasks(){
+    LinkedList<Task> viewedTasks = new LinkedList<>();
+    Node<Task> node = head;
+    while(node != null){
+        viewedTasks.add(node.getData());
+        node = node.getNext();
+    }
+    return viewedTasks;
+    }
 
     @Override
     public List<Task> getHistory() {
-        return taskHistory;
+      return getTasks();
     }
 }
+
+

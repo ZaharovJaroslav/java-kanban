@@ -3,6 +3,7 @@ package taskTracker.tracker.service;
 import taskTracker.tracker.model.Epic;
 import taskTracker.tracker.model.SubTask;
 import taskTracker.tracker.model.Task;
+import java.util.List;
 
 import java.util.ArrayList;
 
@@ -80,5 +81,7 @@ public interface TaskManager {
 
 
     public boolean deleteSubTaskById(int taskID); // удалить подзадачу по id, удалить из Эпика + обновить статус
+
+     public List<Task> getHistori();
 
 }

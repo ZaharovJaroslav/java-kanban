@@ -13,7 +13,6 @@ public class Main {
         Managers managers = new Managers();
         TaskManager taskManage =  managers.getDefault();
 
-
         // Создаем Задачи:
         Task task1 = new Task("Задача 1", "тут описание 1");//0
         taskManage.addTask(task1);
@@ -46,6 +45,6 @@ public class Main {
         taskManage. deleteTaskById(1);
         taskManage.deleteEpicById(2);
 
-        System.out.println(Managers.getDefaultHistory().getHistory());
+        System.out.println("История просмотренных задач" + "\n" + taskManage.getHistori());
     }
 }
