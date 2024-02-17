@@ -43,6 +43,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public void removeFirst(Node <Task> node){
         if(head.getNext() == null){
+            head = null;
         } else {
             head.getNext().setPrev(null);
             head = head.getNext();

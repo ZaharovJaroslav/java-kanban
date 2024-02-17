@@ -7,12 +7,45 @@ public class Task {
     private String taskName;
     private String taskDescription;
     private  TaskStatus taskStatus;
+    private TypeTask typeTask;
+    private  int idEpic;
 
-    public Task(String taskName, String taskDescription,  TaskStatus taskStatus) {
+
+
+    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus,String taskDescription, int idEpic ) {
+        this.taskID = taskID;
+        this.typeTask = typeTask;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
+        this.idEpic = idEpic;
     }
+    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription  ) {
+        this.taskID = taskID;
+        this.typeTask = typeTask;
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.taskStatus = taskStatus;
+
+    }
+
+
+
+
+    public int getIdEpic() {
+        return idEpic;
+    }
+
+    public void setIdEpic(int idEpic) {
+        this.idEpic = idEpic;
+    }
+
+    public Task(String value) {
+
+        }
+
+
+
 
     public int getTaskID() {
         return taskID;
@@ -30,6 +63,10 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
+    public void setTypeTask(TypeTask typeTask){
+        this.typeTask = typeTask;
+    }
+
     public void setTaskID(int taskID) {
         this.taskID = taskID;
     }
@@ -44,6 +81,10 @@ public class Task {
 
     public void setDescription(String taskDescription) {
         this.taskDescription = taskDescription;
+    }
+
+    public TypeTask getTypeTask(){
+        return typeTask;
     }
 
     public String getDescription(){

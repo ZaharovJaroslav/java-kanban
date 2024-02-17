@@ -1,15 +1,16 @@
 package taskTracker.tracker;
 
-import taskTracker.tracker.model.Epic;
-import taskTracker.tracker.model.SubTask;
-import taskTracker.tracker.model.Task;
-import taskTracker.tracker.model.TaskStatus;
+import taskTracker.tracker.model.*;
 import taskTracker.tracker.service.*;
 
 public class Main {
 
 
     public static void main(String[] args) {
+
+
+
+
         Managers managers = new Managers();
         TaskManager taskManage =  managers.getDefault();
 
@@ -24,12 +25,12 @@ public class Main {
         taskManage.addEpic(epic1);
         SubTask subTask11 = new SubTask("подзадача 1.1", "Описание подзадачи 1.1",epic1);//3
         taskManage.addSubTask(subTask11);
-        SubTask subTask12 = new SubTask("подзадача 1.2", "Описание подзадачи 1.2", TaskStatus.NEW, epic1);//4
+        SubTask subTask12 = new SubTask("подзадача 1.2", "Описание подзадачи 1.2", epic1);//4
         taskManage.addSubTask(subTask12);
         SubTask subTask13 = new SubTask("подзадача 1.3", "Описание подзадачи 1.3",epic1);//5
         taskManage.addSubTask(subTask13);
 
-        Epic epic2 = new Epic("Епик 2,", "Описание епика 2",TaskStatus.NEW);//6
+        Epic epic2 = new Epic( "Епик 2", "Описание епика 2");//6
         taskManage.addEpic(epic2);
 
         taskManage.getTaskbyId(1); // 0.1.2.3.4.5.6

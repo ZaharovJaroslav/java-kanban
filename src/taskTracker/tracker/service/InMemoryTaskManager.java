@@ -1,8 +1,5 @@
 package taskTracker.tracker.service;
-import taskTracker.tracker.model.Epic;
-import taskTracker.tracker.model.SubTask;
-import taskTracker.tracker.model.Task;
-import taskTracker.tracker.model.TaskStatus;
+import taskTracker.tracker.model.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,22 +8,22 @@ import java.util.List;
 
 public class InMemoryTaskManager implements TaskManager {
 
-    protected static int taskID;
-    private Task task;
-    private SubTask subTask;
-    private Epic epic;
-    HashMap<Integer, Task> tasks = new HashMap<>();
-    HashMap<Integer, SubTask> subTasks = new HashMap<>();
-    HashMap<Integer, Epic> epics = new HashMap<>();
-    private InMemoryHistoryManager historyManager;
+    protected  int taskID;
+    protected Task task;
+    protected SubTask subTask;
+    protected Epic epic;
+    protected HashMap<Integer, Task> tasks = new HashMap<>();
+    protected HashMap<Integer, SubTask> subTasks = new HashMap<>();
+    protected HashMap<Integer, Epic> epics = new HashMap<>();
+    protected HistoryManager historyManager = Managers.getDefaultHistory();
 
 
 
-    public InMemoryTaskManager(InMemoryHistoryManager historyManager) {
+/*    public InMemoryTaskManager(InMemoryHistoryManager historyManager) {
         this.historyManager = historyManager;
-    }
+    }*/
 
-    private int generateId() {
+    protected int generateId() {
         return taskID ++;
     }
 
@@ -41,6 +38,8 @@ public class InMemoryTaskManager implements TaskManager {
             task.setTaskID(id);
         }
         task.setStatus(TaskStatus.NEW);
+        task.setTypeTask(TypeTask.TASK);
+
         tasks.put(id, task);
     }
 @Override
@@ -83,8 +82,10 @@ public class InMemoryTaskManager implements TaskManager {
     public void addEpic(Epic epic) { // добавить новый Эпик в мапу
         int id = generateId();
         epic.setTaskID(id);
-        epic.setStatus(TaskStatus.NEW);
+      epic.setStatus(TaskStatus.NEW);
+        epic.setTypeTask(TypeTask.EPIC);
         epics.put(id, epic);
+
     }
 @Override
     public ArrayList<Epic> getEpics() {// Получить все Эпики
@@ -165,18 +166,20 @@ public class InMemoryTaskManager implements TaskManager {
     }
 @Override
     public void addSubTask(SubTask subTask) { // добавить новую подзадачу.
-        int id = generateId();
+    int id = generateId();
 
-        if (subTask.getTaskStatus() == null) {
-            subTask.setStatus(TaskStatus.NEW);
-            subTask.setTaskID(id);
-        }
-        subTasks.put(id, subTask);
+    if (subTask.getTaskStatus() == null) {
+        subTask.setStatus(TaskStatus.NEW);
+        subTask.setTypeTask(TypeTask.SUBTASK);
         subTask.setTaskID(id);
-        Epic epic = subTask.getEpicID();
-        epic.addSubtask(id);
-        computeEpicStatus(epic);
     }
+    subTasks.put(id, subTask);
+    subTask.setTaskID(id);
+    Epic epic = subTask.getEpicID();
+    epic.addSubtask(id);
+    subTask.setIdEpic(epic.getTaskID());
+    computeEpicStatus(epic);
+}
 @Override
     public ArrayList<SubTask> getSubTasks() {
         ArrayList<SubTask> subTasksList = new ArrayList<>();
