@@ -23,11 +23,11 @@ public class Main {
         // Добавляем эпик и его подзадачи:
         Epic epic1 = new Epic("Епик 1,", "Описание епика 1");//2
         taskManage.addEpic(epic1);
-        SubTask subTask11 = new SubTask("подзадача 1.1", "Описание подзадачи 1.1",epic1);//3
+        SubTask subTask11 = new SubTask("подзадача 1.1", "Описание подзадачи 1.1",2);//3
         taskManage.addSubTask(subTask11);
-        SubTask subTask12 = new SubTask("подзадача 1.2", "Описание подзадачи 1.2", epic1);//4
+        SubTask subTask12 = new SubTask("подзадача 1.2", "Описание подзадачи 1.2", 2);//4
         taskManage.addSubTask(subTask12);
-        SubTask subTask13 = new SubTask("подзадача 1.3", "Описание подзадачи 1.3",epic1);//5
+        SubTask subTask13 = new SubTask("подзадача 1.3", "Описание подзадачи 1.3",2);//5
         taskManage.addSubTask(subTask13);
 
         Epic epic2 = new Epic( "Епик 2", "Описание епика 2");//6

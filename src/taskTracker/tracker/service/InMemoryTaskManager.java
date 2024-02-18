@@ -175,7 +175,7 @@ public class InMemoryTaskManager implements TaskManager {
     }
     subTasks.put(id, subTask);
     subTask.setTaskID(id);
-    Epic epic = subTask.getEpicID();
+    Epic epic =  epics.get(subTask.getIdEpic());
     epic.addSubtask(id);
     subTask.setIdEpic(epic.getTaskID());
     computeEpicStatus(epic);
@@ -207,14 +207,14 @@ public class InMemoryTaskManager implements TaskManager {
     public void updateSubTask(SubTask subTask) { // обновляем поздачу новой подзадачей и обновить статус Епика
         int id = subTask.getTaskID();
         subTasks.put(id, subTask);
-        Epic epic = subTask.getEpicID();
+        Epic epic =  epics.get(subTask.getIdEpic());
         computeEpicStatus(epic);
     }
 @Override
     public boolean deleteSubTaskById(int taskID) { // удалить подзадачу по id, удалить из Эпика + обновить статус
         if (subTasks.containsKey(taskID)) {
             SubTask subTask = subTasks.get(taskID);
-            Epic epic = subTask.getEpicID();
+            Epic epic =  epics.get(subTask.getIdEpic());
             for (Integer i : epic.getsubTasksIds()) {
                 if (i == taskID){
                     epic.getsubTasksIds().remove(i);
