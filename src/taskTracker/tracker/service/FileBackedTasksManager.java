@@ -20,13 +20,17 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         fileBackedTasksManager.addSubTask(subTask11);
         fileBackedTasksManager.getTaskbyId(5);
         fileBackedTasksManager.getTaskbyId(0);
-     //fileBackedTasksManager.deleteTaskById(0);
-    // fileBackedTasksManager.deleteTaskById(1);
+    /* fileBackedTasksManager.deleteTaskById(0);
+     fileBackedTasksManager.deleteTaskById(1);*/
       //  System.out.println("История просмотренных задач" + "\n" + fileBackedTasksManager.getHistori());
 
         FileBackedTasksManager fileManager = FileBackedTasksManager.loadFromFile(new File("tasks.csv"));
-        Task task3 = new Task("Задача 3", "тут описание 3");//0
+        Task task3 = new Task("Задача 3", "тут описание 3");
         fileManager.addTask(task3);
+        Task task4 = new Task("Задача 4", "тут описание 4");
+        fileManager.addTask(task4);
+        Task task5 = new Task("Задача 5", "тут описание 5");
+        fileManager.addTask(task5);
 
 
     }
@@ -39,8 +43,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     }
 
+
     protected static FileBackedTasksManager loadFromFile(File file) {
         FileBackedTasksManager fileManager = new FileBackedTasksManager(file);
+        int maxId = 0;
         try {
             FileReader fileReader = new FileReader(file);
             BufferedReader br = new BufferedReader(fileReader);
@@ -55,15 +61,25 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     Task task = fromString(line);
                     if (task.getTypeTask() == TypeTask.TASK) {
                        fileManager.tasks.put(task.getTaskID(), task);
-                       fileManager.taskID++;
+                      for (Integer id : fileManager.tasks.keySet()) { // итерируем по id ищем максимальное значение
+                          if (id > maxId){
+                              maxId = id;
+                          }
+                      }
+                        fileManager.taskID = maxId;
                     } else if (task.getTypeTask() == TypeTask.EPIC) {
-                        fileManager.taskID++;
+
                         fileManager.epics.put(task.getTaskID(),new Epic(task.getTaskID(),
                                 task.getTypeTask(),
                                 task.getName(),
                                 task.getTaskStatus(),
                                 task.getDescription()));
-
+                        for (Integer id : fileManager.epics.keySet()) {
+                            if (id > maxId){
+                                maxId = id;
+                            }
+                        }
+                        fileManager.taskID = maxId;
                     } else {
                         fileManager.taskID++;
                         Epic epic = fileManager.epics.get(task.getIdEpic());
@@ -76,7 +92,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                         epic.addSubtask(task.getTaskID());
                         SubTask subtask =  fileManager.subTasks.get(task.getTaskID());
                         subtask.setIdEpic(epic.getTaskID());
-                        fileManager.computeEpicStatus(epic);
+                        for (Integer id : fileManager.subTasks.keySet()) {
+                            if (id > maxId){
+                                maxId = id;
+                            }
+                        }
+                        fileManager.taskID = maxId+1; // если будем создавать новую задачу, id новой задачи будет равен maxId+1;
                        }
                     } else {
                     List<Integer> list = new ArrayList<>(historyFromString(line));
