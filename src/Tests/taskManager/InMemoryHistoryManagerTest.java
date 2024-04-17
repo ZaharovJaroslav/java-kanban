@@ -98,6 +98,7 @@ class InMemoryHistoryManagerTest  {
 
     @Test
     void test7_ShouldTheOldVersionOfTheBrowsingHistory() {
+        historyManager.add(task1);
         historyManager.add(task2);
         historyManager.remove(task1.getTaskID());
         List<Task> OldVersionHistori = historyManager.getOldVersionHistori();
