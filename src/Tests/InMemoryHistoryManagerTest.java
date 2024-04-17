@@ -1,5 +1,3 @@
-package taskManager;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import taskTracker.tracker.model.*;

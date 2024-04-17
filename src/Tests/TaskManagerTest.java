@@ -1,5 +1,3 @@
-package taskManager;
-
 import org.junit.jupiter.api.Test;
 import taskTracker.tracker.exceptions.CollisionTaskException;
 import taskTracker.tracker.model.*;
