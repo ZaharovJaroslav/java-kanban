@@ -38,7 +38,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 // ТЕСТЫ ДЛЯ TASK
 
     @Test
-    void test1_addTask_shouldCreateATask(){
+    void test1_addTask_shouldCreateATask() {
         taskManager.addTask(task1);
         List<Task> listOfTasks = taskManager.getTasks();
 
@@ -112,7 +112,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void test8_getEpics_shouldReturnTheCreatedEpics(){
+    void test8_getEpics_shouldReturnTheCreatedEpics() {
         taskManager.addEpic(epic1);
         List<Epic> listOfEpics = taskManager.getEpics();
 
