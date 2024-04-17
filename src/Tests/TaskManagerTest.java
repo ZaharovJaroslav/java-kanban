@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-abstract class TaskManagerTest < T extends TaskManager > {
+abstract class TaskManagerTest <T extends TaskManager> {
     protected T taskManager;
 
    final Epic epic1 = new Epic("Epic1_Test", "Epic1_Description");
