@@ -4,7 +4,7 @@ import taskTracker.tracker.service.InMemoryTaskManager;
 public class InMemoryTasksManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 
     @BeforeEach
-    void setUp (){
+    void setUp() {
         super.taskManager = new InMemoryTaskManager();
     }
 }
