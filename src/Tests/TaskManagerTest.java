@@ -38,7 +38,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 // ТЕСТЫ ДЛЯ TASK
 
     @Test
-    void Test1_addTask_shouldCreateATask() {
+    void test1_addTask_shouldCreateATask(){
         taskManager.addTask(task1);
         List<Task> listOfTasks = taskManager.getTasks();
 
@@ -46,7 +46,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test2_getTasks_shouldReturnTheCreatedTasks() {
+    void test2_getTasks_shouldReturnTheCreatedTasks() {
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         List<Task> listOfTasks = taskManager.getTasks();
@@ -55,7 +55,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test3_deleteTask_shouldDeleteAllTasks () {
+    void test3_deleteTask_shouldDeleteAllTasks () {
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         taskManager.deleteTask();
@@ -66,7 +66,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
 
     @Test
-    void Test4_getTaskById_shouldReturnTheTaskById() {
+    void test4_getTaskById_shouldReturnTheTaskById() {
         taskManager.addTask(task1);
         taskManager.addTask(task2);
         int taskId = task1.getTaskID();
@@ -76,7 +76,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test5_updateTask_shouldUpdateTheTask() {
+    void test5_updateTask_shouldUpdateTheTask() {
         taskManager.addTask(task1);
 
 
@@ -89,7 +89,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test6_deleteTaskById_shouldDeleteTheTaskById() {
+    void test6_deleteTaskById_shouldDeleteTheTaskById() {
         taskManager.addTask(task1);
         taskManager.addTask(task2);
 
@@ -104,7 +104,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
 
     @Test
-    void Test7_addEpic_shouldCreateAEpic() {
+    void test7_addEpic_shouldCreateAEpic() {
         taskManager.addEpic(epic1);
         List<Epic> listOfEpics = taskManager.getEpics();
 
@@ -112,7 +112,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test8_getEpics_shouldReturnTheCreatedEpics(){
+    void test8_getEpics_shouldReturnTheCreatedEpics(){
         taskManager.addEpic(epic1);
         List<Epic> listOfEpics = taskManager.getEpics();
 
@@ -120,7 +120,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test9_deleteEpics_shouldDeleteAllEpicsAndItsSubtasks() {
+    void test9_deleteEpics_shouldDeleteAllEpicsAndItsSubtasks() {
         taskManager.addEpic(epic1);
 
         taskManager.addSubTask(subTask1);
@@ -134,7 +134,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test10_getEpicById_shouldReturnTheEpicById() {
+    void test10_getEpicById_shouldReturnTheEpicById() {
         taskManager.addEpic(epic1);
         Epic epic = taskManager.getEpicbyId(epic1.getTaskID());
 
@@ -142,7 +142,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test11_getsEpicSubtasks_shouldReturnEpicSubtasks() { //
+    void test11_getsEpicSubtasks_shouldReturnEpicSubtasks() { //
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
@@ -155,7 +155,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test12_updateEpics_shouldUpdateTheEpic() {
+    void test12_updateEpics_shouldUpdateTheEpic() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
@@ -169,7 +169,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test13_deleteEpicById_shouldDeleteTheEpicById() {
+    void test13_deleteEpicById_shouldDeleteTheEpicById() {
         taskManager.addEpic(epic1);
         taskManager.addEpic(epic2);
         taskManager.deleteEpicById(epic1.getTaskID());
@@ -179,7 +179,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test14_computeEpicStatus_shouldSetTheStatusToEpic() {
+    void test14_computeEpicStatus_shouldSetTheStatusToEpic() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
@@ -197,7 +197,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
 
     @Test
-    void Test15_addSubTask_shouldCreateSubTask() {
+    void test15_addSubTask_shouldCreateSubTask() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         List<SubTask> listOfSubTasks = taskManager.getSubTasks();
@@ -206,7 +206,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test16_getSubTasks_shouldReturnTheCreatedSubTasks() {
+    void test16_getSubTasks_shouldReturnTheCreatedSubTasks() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         List<SubTask> listOfSubTasks = taskManager.getSubTasks();
@@ -215,7 +215,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test17_deleteSubTask_shouldRemoveAllSubtasksAndAlsoRemoveFromEpics() {
+    void test17_deleteSubTask_shouldRemoveAllSubtasksAndAlsoRemoveFromEpics() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
@@ -230,7 +230,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test18_getSubTaskById_shouldReturnTheSubTaskById() {
+    void test18_getSubTaskById_shouldReturnTheSubTaskById() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
@@ -242,7 +242,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test19_updateSubTask_shouldUpdateTheSubTask() {// обновляем поздачу новой подзадачей и обновить статус Епика
+    void test19_updateSubTask_shouldUpdateTheSubTask() {// обновляем поздачу новой подзадачей и обновить статус Епика
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.updateSubTask(subTask1, subTask2);
@@ -258,7 +258,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test19_deleteSubTaskById_shouldDeleteTheSubTaskById() {
+    void test19_deleteSubTaskById_shouldDeleteTheSubTaskById() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
 
@@ -270,7 +270,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test20_shouldСheckIfTheSubtaskContainsAnEpic() { //b. Для подзадач нужно дополнительно проверить наличие эпика, а для эпика — расчёт статуса.
+    void test20_shouldСheckIfTheSubtaskContainsAnEpic() { //b. Для подзадач нужно дополнительно проверить наличие эпика, а для эпика — расчёт статуса.
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
