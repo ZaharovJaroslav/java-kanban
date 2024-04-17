@@ -3,23 +3,22 @@ package taskTracker.tracker.service;
 import taskTracker.tracker.model.Epic;
 import taskTracker.tracker.model.SubTask;
 import taskTracker.tracker.model.Task;
-import java.util.List;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public interface TaskManager {
-   /* protected static int taskID;
-    private Task task;
-    private SubTask subTask;
-    private Epic epic;
-    HashMap<Integer, Task> tasks = new HashMap<>();
-    HashMap<Integer, SubTask> subTasks = new HashMap<>();
-    HashMap<Integer, Epic> epics = new HashMap<>();*/
+     DateTimeFormatter DATA_TIME_FORMAT = DateTimeFormatter.ofPattern("MM.dd.yy HH:mm");
+
+    public int getID(Task task);
+
+    ArrayList<Task> getPrioritizedTasks();
 
 
-    //private int generateId();
+
+
 
 
     // РАБОТА С ПРОСТЫМИ ЗАДАЧАМИ
@@ -36,7 +35,7 @@ public interface TaskManager {
     public Task getTaskbyId(int taskID); // получить задачу по id
 
 
-    public void updateTask(Task task); // обновить задачу новой задачей
+     public void updateTask(Task task, Task newTask); // обновить задачу новой задачей
 
 
     public void deleteTaskById(int taskID);// удалить задачу по id
@@ -58,12 +57,13 @@ public interface TaskManager {
     public ArrayList<SubTask> getsEpicSubtasks(Epic epic);  // получить список подзадач определенного Эпика
 
 
-    public void updateEpic(Epic epic); // обновить Эпик новым Эпиком
+    public void updateEpic(Epic epic, Epic newEpic); // обновить Эпик новым Эпиком
 
 
     public boolean deleteEpicById(int taskID); // удалить Эпик по id,а так же его подзадачи
 
     public void computeEpicStatus(Epic epic);
+    public void computeEpicDataTime (Epic epic, SubTask subTask);
 
 //ПОДЗАДАЧИ
 
@@ -77,11 +77,12 @@ public interface TaskManager {
 
     public SubTask getSubTaskbyId(int taskID); // вывести подзадачу по id
 
-    public void updateSubTask(SubTask subTask);// обновляем поздачу новой подзадачей и обновить статус Епика
+    public void updateSubTask(SubTask subTask, SubTask newSubtask);// обновляем поздачу новой подзадачей и обновить статус Епика
 
 
     public boolean deleteSubTaskById(int taskID); // удалить подзадачу по id, удалить из Эпика + обновить статус
 
      public List<Task> getHistori();
+     public List<Task> getOldVersionHistori();
 
 }
