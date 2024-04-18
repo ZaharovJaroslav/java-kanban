@@ -38,7 +38,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-       if(custemMap.containsKey(id)){
+       if (custemMap.containsKey(id)) {
            oldVersionHistori = getTasks();
             removeNode(id);
         }
