@@ -49,7 +49,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (node == head) {
             removeFirst(node);
             custemMap.remove(id);
-        } else if(node == tail) {
+        } else if (node == tail) {
             removeLast(node);
             custemMap.remove(id);
         } else {
@@ -101,7 +101,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
       return getTasks();
     }
-  @Override
+    @Override
     public List<Task> getOldVersionHistori() {
     return oldVersionHistori;
     }
