@@ -1,4 +1,4 @@
-package taskTracker.tracker.service;
+package service;
 
 public class Node<T> {
     private T data;

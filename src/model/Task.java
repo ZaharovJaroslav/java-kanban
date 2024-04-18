@@ -1,9 +1,9 @@
-package taskTracker.tracker.model;
+package model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static taskTracker.tracker.service.TaskManager.DATA_TIME_FORMAT;
+import static service.TaskManager.DATA_TIME_FORMAT;
 
 public class Task {
 

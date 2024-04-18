@@ -1,10 +1,8 @@
-package taskTracker.tracker;
-
-import taskTracker.tracker.model.SubTask;
-import taskTracker.tracker.model.Task;
-import taskTracker.tracker.model.TypeTask;
-import taskTracker.tracker.service.Managers;
-import taskTracker.tracker.service.TaskManager;
+import model.SubTask;
+import model.Task;
+import model.TypeTask;
+import service.Managers;
+import service.TaskManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

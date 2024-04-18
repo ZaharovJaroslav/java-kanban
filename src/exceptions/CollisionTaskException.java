@@ -1,4 +1,4 @@
-package taskTracker.tracker.exceptions;
+package exceptions;
 
 public class CollisionTaskException extends RuntimeException {
 

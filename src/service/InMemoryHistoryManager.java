@@ -1,5 +1,5 @@
-package taskTracker.tracker.service;
-import taskTracker.tracker.model.Task;
+package service;
+import model.Task;
 
 import java.util.*;
 

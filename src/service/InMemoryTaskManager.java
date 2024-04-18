@@ -1,6 +1,8 @@
-package taskTracker.tracker.service;
+package service;
 
-import taskTracker.tracker.exceptions.CollisionTaskException;
+import exceptions.CollisionTaskException;
+import model.*;
+import taskTracker.model.*;
 import taskTracker.tracker.model.*;
 
 import java.time.Duration;

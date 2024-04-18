@@ -1,9 +1,6 @@
-package taskTracker.tracker.service;
-
-import taskTracker.tracker.model.Task;
+package service;
 
 import java.io.File;
-import java.util.List;
 
 public class Managers {
 

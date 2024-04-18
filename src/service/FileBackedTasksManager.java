@@ -1,6 +1,8 @@
-package taskTracker.tracker.service;
+package service;
 
-import taskTracker.tracker.exceptions.ManagerSaveException;
+import exceptions.ManagerSaveException;
+import model.*;
+import taskTracker.model.*;
 import taskTracker.tracker.model.*;
 
 import java.io.*;

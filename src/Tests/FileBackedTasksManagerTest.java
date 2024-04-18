@@ -1,10 +1,10 @@
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import taskTracker.tracker.model.Epic;
-import taskTracker.tracker.model.SubTask;
-import taskTracker.tracker.model.Task;
-import taskTracker.tracker.service.FileBackedTasksManager;
+import model.Epic;
+import model.SubTask;
+import model.Task;
+import service.FileBackedTasksManager;
 
 import java.io.File;
 import java.io.IOException;

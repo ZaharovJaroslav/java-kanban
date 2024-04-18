@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
-import taskTracker.tracker.service.InMemoryTaskManager;
+import service.InMemoryTaskManager;
 
 public class InMemoryTasksManagerTest extends TaskManagerTest<InMemoryTaskManager> {
 

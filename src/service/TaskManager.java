@@ -1,8 +1,8 @@
-package taskTracker.tracker.service;
+package service;
 
-import taskTracker.tracker.model.Epic;
-import taskTracker.tracker.model.SubTask;
-import taskTracker.tracker.model.Task;
+import model.Epic;
+import model.SubTask;
+import model.Task;
 
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -48,7 +48,7 @@ public interface TaskManager {
 
     public void computeEpicStatus(Epic epic);
 
-    public void computeEpicDataTime (Epic epic, SubTask subTask);
+    public void computeEpicDataTime(Epic epic, SubTask subTask);
 
 //ПОДЗАДАЧИ
 

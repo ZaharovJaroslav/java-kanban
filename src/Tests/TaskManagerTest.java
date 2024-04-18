@@ -1,7 +1,9 @@
+import model.*;
 import org.junit.jupiter.api.Test;
-import taskTracker.tracker.exceptions.CollisionTaskException;
+import exceptions.CollisionTaskException;
+import taskTracker.model.*;
 import taskTracker.tracker.model.*;
-import taskTracker.tracker.service.TaskManager;
+import service.TaskManager;
 
 import java.time.Duration;
 import java.time.LocalDateTime;

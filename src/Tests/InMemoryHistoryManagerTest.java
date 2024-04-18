@@ -1,9 +1,13 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import model.Epic;
+import model.Task;
+import model.TaskStatus;
+import model.TypeTask;
 import taskTracker.tracker.model.*;
-import taskTracker.tracker.service.HistoryManager;
-import taskTracker.tracker.service.Managers;
-import taskTracker.tracker.service.Node;
+import service.HistoryManager;
+import service.Managers;
+import service.Node;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -23,7 +27,7 @@ class InMemoryHistoryManagerTest {
   void createTasks() {
       historyManager = Managers.getDefaultHistory();
 
-      task1 = new Task(0,TypeTask.TASK, "Task_Name1", TaskStatus.NEW, " Task_Dscription",
+      task1 = new Task(0, TypeTask.TASK, "Task_Name1", TaskStatus.NEW, " Task_Dscription",
               Duration.ofHours(1).plusMinutes(30),
               LocalDateTime.of(2024, Month.OCTOBER, 11, 5, 0));
 
