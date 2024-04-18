@@ -48,9 +48,9 @@ public class Task {
 
     }
 
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription,
+    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus ,String taskDescription,
                  Duration duration,
-                 LocalDateTime startTime ){
+                 LocalDateTime startTime){
         this.taskID = taskID;
         this.typeTask = typeTask;
         this.taskName = taskName;
@@ -61,10 +61,10 @@ public class Task {
        LocalDateTime endTime = getEndTime();
     }
 
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription, int idEpic,
+    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription, int idEpic,
                  LocalDateTime startTime,
                  Duration duration,
-                 LocalDateTime endTime){
+                 LocalDateTime endTime) {
         this.taskID = taskID;
         this.typeTask = typeTask;
         this.taskName = taskName;
@@ -77,10 +77,10 @@ public class Task {
         endTime = getEndTime();
     }
 
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription,
+    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription,
                  LocalDateTime startTime,
                  Duration duration,
-                 LocalDateTime endTime){
+                 LocalDateTime endTime) {
         this.taskID = taskID;
         this.typeTask = typeTask;
         this.taskName = taskName;
