@@ -26,7 +26,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void add(Task task ) {
+    public void add(Task task) {
     if (custemMap.isEmpty()) {
         linkLast(task);
     } else {
@@ -38,15 +38,15 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-       if (custemMap.containsKey(id)) {
+       if(custemMap.containsKey(id)) {
            oldVersionHistori = getTasks();
             removeNode(id);
         }
     }
 
     private void removeNode(int id) {
-        final Node <Task> node = custemMap.get(id);
-        if (node == head){
+        final Node<Task> node = custemMap.get(id);
+        if(node == head) {
             removeFirst(node);
             custemMap.remove(id);
         } else if(node == tail) {
@@ -59,8 +59,8 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    public void removeFirst(Node <Task> node) {
-        if (head.getNext() == null) {
+    public void removeFirst(Node<Task> node) {
+        if(head.getNext() == null) {
             head = null;
             tail = null;
         } else {
@@ -69,13 +69,13 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    public void removeLast(Node <Task> node){
+    public void removeLast(Node<Task> node) {
         tail.getPrev().setNext(null);
         tail = tail.getPrev();
     }
 
     private void linkLast(Task task) {
-        final Node <Task> oldTail = tail;
+        final Node<Task> oldTail = tail;
         final Node<Task> newNode = new Node<>(task,null, tail);
         tail = newNode;
         custemMap.put(task.getTaskID(), newNode);
@@ -89,7 +89,8 @@ public class InMemoryHistoryManager implements HistoryManager {
     private List<Task> getTasks() {
     LinkedList<Task> viewedTasks = new LinkedList<>();
     Node<Task> node = head;
-    while(node != null) {
+
+    while(node != null){
         viewedTasks.add(node.getData());
         node = node.getNext();
     }
