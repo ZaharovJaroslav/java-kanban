@@ -17,8 +17,6 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
 
-  // final Path path = Path.of("./resources/test.csv");
-
     File file;
 
     @BeforeEach
