@@ -101,6 +101,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
       return getTasks();
     }
+    
     @Override
     public List<Task> getOldVersionHistori() {
     return oldVersionHistori;
