@@ -9,7 +9,6 @@ import service.FileBackedTasksManager;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,17 +16,16 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
-   // private final Path path = Path.of("resources/back up.csv");
-  //  private final File file = new File(String.valueOf(path));
-   final Path path = Path.of("./resources/test.csv");
+
+  // final Path path = Path.of("./resources/test.csv");
 
     File file;
 
     @BeforeEach
     void setUp() {
 
-        //this.file = new File("./resources/test.csv");
-        this.file =  new File(String.valueOf(path));
+        this.file = new File("./resources/test.csv");
+       // this.file =  new File(String.valueOf(path));
         super.taskManager = new FileBackedTasksManager(file);
     }
 
