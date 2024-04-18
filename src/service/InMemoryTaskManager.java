@@ -33,7 +33,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         } else if (newTask.getStartTime().isBefore(task.getStartTime()) && newTask.getEndTime().isBefore(task.getStartTime())) {
           result = true;
         } else
-            throw new CollisionTaskException ( "Время выполнения задачи пересекается со временем уже существующей " +
+            throw new CollisionTaskException ("Время выполнения задачи пересекается со временем уже существующей " +
                     "задачи. Выберите другую дату.");
     }
             return result;
@@ -103,7 +103,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         int id = task.getTaskID();
         newTask.setTaskID(id);
         deleteTaskById(id);
-        Predicate<Task>checkTime = this::checkForTimeIntersections;
+        Predicate<Task> checkTime = this::checkForTimeIntersections;
         tasks.put(id, newTask);
     }
 
@@ -195,7 +195,7 @@ public boolean checkForTimeIntersections(Task newTask) {
 
 @Override
     public void computeEpicDataTime(Epic epic, SubTask subTask) {
-        long durationEpic =0;
+        long durationEpic = 0;
         if (epic.getDuration() == null) {
             epic.setDuration(subTask.getDuration());
             epic.setStartTime(subTask.getStartTime());
