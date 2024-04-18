@@ -99,12 +99,12 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-      return getTasks();
+        return getTasks();
     }
-    
+
     @Override
     public List<Task> getOldVersionHistori() {
-    return oldVersionHistori;
+        return oldVersionHistori;
     }
 }
 
