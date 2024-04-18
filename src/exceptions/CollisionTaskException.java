@@ -1,8 +1,7 @@
 package exceptions;
 
 public class CollisionTaskException extends RuntimeException {
-
-
+    
         public CollisionTaskException() {
             super();
         }
