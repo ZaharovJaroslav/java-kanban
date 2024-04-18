@@ -146,7 +146,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                        }
 
                     } else {
-                    List<Integer>list = new ArrayList<>(historyFromString(line));
+                    List<Integer> list = new ArrayList<>(historyFromString(line));
                     List<Task> viewedTasks = new ArrayList<>();
                     for (Integer el : list) {
                         if (fileManager.epics.containsKey(el)) {
@@ -169,7 +169,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     private  void save() {
-         try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))){
+         try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))) {
          writer.write(FIRST_LINE);
          writer.write("\n");
          saveTasksToFile(writer);
@@ -178,13 +178,13 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
              ids.add(String.valueOf(task.getTaskID()));
          }
          writer.write(String.join(",", ids));
-        } catch(IOException e) {
+        } catch (IOException e) {
          throw new ManagerSaveException("Ошибка при попытке записи в файл");
         }
     }
 
     private void saveTasksToFile(BufferedWriter writer) throws IOException {
-         for (Task task : tasks.values()){
+         for (Task task : tasks.values()) {
              writer.write(toString(task));
              writer.write("\n");
          }
@@ -200,9 +200,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public static void saveHistoryViews(List<Task> history) { // Метод для записи id просмотренных задач в файл
          List<Task> taskID = new ArrayList<>(history);
-         StringBuilder stringBuilder= new StringBuilder();
+         StringBuilder stringBuilder = new StringBuilder();
 
-           for (int i = 0; i < taskID.size(); i++){
+           for (int i = 0; i < taskID.size(); i++) {
                int id = taskID.get(i).getTaskID();
                if (i == taskID.size() - 1) {
                    stringBuilder.append(Integer.toString(id));
@@ -211,16 +211,18 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                }
            }
     }
+
     private static List<Integer> historyFromString(String value) {  // Метод для получения id gросмотренных задач из файла
         List<Integer> taskID = new ArrayList<>();
         String[] array = value.split(",");
-        for (String id: array){
+        for (String id: array) {
             taskID.add(Integer.parseInt(id));
         }
         return taskID;
     }
 
-    private String toString(Task task){ ///  Из Task ---> в String
+
+    private String toString(Task task) { ///  Из Task ---> в String
         String taskToSave;
 
        if(task.getTypeTask() == TypeTask.TASK) {
@@ -339,9 +341,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         if (type == TypeTask.SUBTASK) {
             return new SubTask(id, type, name, status, description, epicID, startTime, duration, endTime);
         }  else if (type == TypeTask.EPIC) {
-            return new Epic( id, type, name, status, description, startTime, duration, endTime);
+            return new Epic(id, type, name, status, description, startTime, duration, endTime);
         } else
-            return new Task( id, type, name, status, description, startTime, duration, endTime);
+            return new Task(id, type, name, status, description, startTime, duration, endTime);
     }
 
 // РАБОТА С ПРОСТЫМИ ЗАДАЧАМИ
@@ -357,7 +359,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void computeEpicDataTime (Epic epic, SubTask subTask) {
+    public void computeEpicDataTime(Epic epic, SubTask subTask) {
         super.computeEpicDataTime(epic, subTask);
     }
 
@@ -410,7 +412,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Epic getEpicbyId (int taskID) { // вывести эпик по id
+    public Epic getEpicbyId(int taskID) { // вывести эпик по id
         Epic epic = super.getEpicbyId(taskID);
         if (epic != null) {
             save();
@@ -430,7 +432,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         save();
         return true;
     }
-
+    
     @Override
     public void computeEpicStatus(Epic epic){
        super.computeEpicStatus(epic);
