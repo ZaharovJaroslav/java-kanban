@@ -38,7 +38,7 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-       if(custemMap.containsKey(id)) {
+       if(custemMap.containsKey(id)){
            oldVersionHistori = getTasks();
             removeNode(id);
         }
@@ -46,10 +46,10 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     private void removeNode(int id) {
         final Node<Task> node = custemMap.get(id);
-        if(node == head) {
+        if(node == head){
             removeFirst(node);
             custemMap.remove(id);
-        } else if(node == tail) {
+        } else if(node == tail){
             removeLast(node);
             custemMap.remove(id);
         } else {
