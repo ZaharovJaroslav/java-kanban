@@ -99,9 +99,9 @@ class InMemoryHistoryManagerTest {
         historyManager.add(task1);
         historyManager.add(task2);
         historyManager.remove(task1.getTaskID());
-        List<Task> OldVersionHistori = historyManager.getOldVersionHistori();
+        List<Task> oldVersionHistori = historyManager.getOldVersionHistori();
 
-        assertTrue(OldVersionHistori.contains(task1));
+        assertTrue(oldVersionHistori.contains(task1));
     }
 
     @Test
