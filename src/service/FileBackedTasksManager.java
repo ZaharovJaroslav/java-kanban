@@ -79,8 +79,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     private static final String FIRST_LINE = "id,type,name,status,description,epic,start_Time,end_Time, duration";
 
-    public FileBackedTasksManager(File FILE) {
-        this.file = FILE;
+    public FileBackedTasksManager(File file) {
+        this.file = file;
     }
 
     public static FileBackedTasksManager loadFromFile(File file) {
@@ -141,7 +141,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                                 maxId = id;
                             }
                         }
-                        fileManager.taskID = maxId+1; // если будем создавать новую задачу, id новой задачи будет равен maxId+1;
+                        fileManager.taskID = maxId + 1;  // если будем создавать новую задачу, id новой задачи будет равен maxId+1;
                        }
 
                     } else {
@@ -169,9 +169,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
 
-    private void save(){
+    private void save() {
          try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))) {
-         writer.write(FIRST_LINE );
+         writer.write (FIRST_LINE );
          writer.write("\n");
          saveTasksToFile(writer);
          List<String> ids = new ArrayList<>(); //сохраняем историю просмотров
@@ -179,7 +179,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
              ids.add(String.valueOf(task.getTaskID()));
          }
          writer.write(String.join(",", ids));
-        } catch(IOException e) {
+        } catch (IOException e) {
          throw new ManagerSaveException("Ошибка при попытке записи в файл");
         }
     }
@@ -201,7 +201,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     public static void saveHistoryViews(List<Task> history) { // Метод для записи id просмотренных задач в файл
          List<Task> taskID = new ArrayList<>(history);
-         StringBuilder stringBuilder= new StringBuilder();
+         StringBuilder stringBuilder = new StringBuilder();
 
            for (int i = 0; i < taskID.size(); i++) {
                int id = taskID.get(i).getTaskID();
@@ -212,6 +212,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                }
            }
     }
+
     private static List<Integer> historyFromString(String value) {  // Метод для получения id gросмотренных задач из файла
         List<Integer> taskID = new ArrayList<>();
         String[] array = value.split(",");
@@ -223,8 +224,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     private String toString(Task task) { ///  Из Task ---> в String
         String taskToSave;
-
-       if(task.getTypeTask() == TypeTask.TASK) {
+       if (task.getTypeTask() == TypeTask.TASK) {
            return taskToSave = task. getTaskID() +
                 "," + task.getTypeTask() +
                 "," + task.getName() +
@@ -241,7 +241,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                        "," + task.getTypeTask() +
                        "," + task.getName() +
                        "," + task.getTaskStatus() +
-                       "," + task.getDescription()+
+                       "," + task.getDescription() +
                        "," + "-" +
                        "," + "-" +
                        "," + "-" +
@@ -252,7 +252,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                        "," + task.getTypeTask() +
                        "," + task.getName() +
                        "," + task.getTaskStatus() +
-                       "," + task.getDescription()+
+                       "," + task.getDescription() +
                        "," + "-" +
                        "," + task.getStartTime().format(DATA_TIME_FORMAT) +
                        "," + task.getEndTime().format(DATA_TIME_FORMAT) +
@@ -338,11 +338,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             }
         }
         if (type == TypeTask.SUBTASK) {
-            return new SubTask( id, type, name, status, description,epicID,startTime,duration,endTime);
+            return new SubTask( id, type, name, status, description, epicID, startTime, duration, endTime);
         }  else if (type == TypeTask.EPIC) {
-            return new Epic( id, type, name, status, description, startTime,duration,endTime);
+            return new Epic( id, type, name, status, description, startTime, duration, endTime);
         } else
-            return new Task( id, type, name, status, description, startTime,duration,endTime);
+            return new Task( id, type, name, status, description, startTime, duration, endTime);
 
     }
 
@@ -350,9 +350,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 // РАБОТА С ПРОСТЫМИ ЗАДАЧАМИ
 
     @Override
-    public ArrayList <Task> getPrioritizedTasks() {
+    public ArrayList<Task> getPrioritizedTasks() {
      return super.getPrioritizedTasks();
     }
+
     @Override
     public boolean checkForTimeIntersections(Task newTask) {
        return super.checkForTimeIntersections(newTask);
@@ -385,11 +386,13 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
         return task;
     }
+
     @Override
     public void updateTask(Task task, Task newTask) { // обновить задачу новой задачей
         super.updateTask(task, newTask);
         save();
     }
+
     @Override
     public void deleteTaskById(int taskID) { // удалить задачу по id
         super.deleteTaskById(taskID);
@@ -406,10 +409,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteEpics() { // очистить мапу c Эпиками, удалить все подзадачи
+    public void deleteEpics() {  // очистить мапу c Эпиками, удалить все подзадачи
         super.deleteEpics();
         save();
     }
+
     @Override
     public Epic getEpicbyId (int taskID) { // вывести эпик по id
         Epic epic = super.getEpicbyId(taskID);
@@ -446,7 +450,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void deleteSubTask() { // очистить мапу с подзадачами, удалить подазадачи из эпиков и обновить их статусы
+    public void deleteSubTask() {  // очистить мапу с подзадачами, удалить подазадачи из эпиков и обновить их статусы
         super.deleteSubTask();
         save();
     }
@@ -457,19 +461,21 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             save();
         }
        return subTask;
-
     }
+
     @Override
     public void updateSubTask(SubTask subTask, SubTask newSubTask) { // обновляем поздачу новой подзадачей и обновить статус Епика
         super.updateSubTask(subTask, newSubTask);
         save();
     }
+
     @Override
     public boolean deleteSubTaskById(int taskID) { // удалить подзадачу по id, удалить из Эпика + обновить статус
        super.deleteSubTaskById(taskID);
        save();
        return true;
     }
+    
     @Override
     public List<Task> getHistori() {
         return historyManager.getHistory();
