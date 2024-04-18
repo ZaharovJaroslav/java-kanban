@@ -14,10 +14,12 @@ public class InMemoryHistoryManager implements HistoryManager {
     public Map<Integer, Node<Task>> getCustemMap() {
         return custemMap;
     }
+
     @Override
     public Node<Task> getHead() {
         return head;
     }
+
     @Override
     public Node<Task> getTail() {
         return tail;
@@ -99,6 +101,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
       return getTasks();
     }
+
     @Override
     public List<Task> getOldVersionHistori() {
     return oldVersionHistori;

@@ -44,6 +44,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         return new ArrayList<>(sortedList);
 }
 
+    @Override
     public int getID(Task task) {
        return task.getTaskID();
     }
