@@ -12,8 +12,10 @@ import java.util.stream.Collectors;
 public class InMemoryTaskManager implements TaskManager {
 
     protected  int taskID;
+
     protected Task task;
     protected SubTask subTask;
+
     protected Epic epic;
     protected HashMap<Integer, Task> tasks = new HashMap<>();
     protected HashMap<Integer, SubTask> subTasks = new HashMap<>();
@@ -71,6 +73,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         tasks.put(id, task);
     }
     }
+
 @Override
     public ArrayList<Task> getTasks() { // получить все простые задачи
         ArrayList <Task> taskList = new ArrayList<>();
@@ -79,11 +82,13 @@ public boolean checkForTimeIntersections(Task newTask) {
         }
         return taskList;
     }
+
 @Override
     public void deleteTask() { // очистить мапу с простыми задачами
         tasks.clear();
 
     }
+
 @Override
     public Task getTaskbyId(int taskID) { // получить задачу по id
         if (tasks.containsKey(taskID)) {
@@ -92,7 +97,8 @@ public boolean checkForTimeIntersections(Task newTask) {
         }
         return task;
     }
-    @Override
+
+@Override
     public void updateTask(Task task, Task newTask) { // обновить задачу новой задачей
         int id = task.getTaskID();
         newTask.setTaskID(id);
@@ -100,6 +106,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         Predicate<Task> CheckTime = this::checkForTimeIntersections;
         tasks.put(id, newTask);
     }
+
 @Override
     public void deleteTaskById(int taskID) { // удалить задачу по id
         if (tasks.containsKey(taskID)) {
@@ -123,6 +130,7 @@ public boolean checkForTimeIntersections(Task newTask) {
 
 
     }
+
 @Override
     public ArrayList<Epic> getEpics() {// Получить все Эпики
         ArrayList<Epic> epicList = new ArrayList<>();
@@ -131,11 +139,13 @@ public boolean checkForTimeIntersections(Task newTask) {
         }
         return epicList;
     }
+
 @Override
     public void deleteEpics() { // очистить мапу c Эпиками, удалить все подзадачи
         epics.clear();
         subTasks.clear();
     }
+
 @Override
     public Epic getEpicbyId(int taskID) { // вывести эпик по id
         if (epics.containsKey(taskID)) {
@@ -144,6 +154,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         }
         return epic;
     }
+
 @Override
     public ArrayList <SubTask> getsEpicSubtasks(Epic epic) {  // получить список подзадач определенного Эпика
      List<SubTask> epicSubtasks = epic.getsubTasksIds()
@@ -151,12 +162,9 @@ public boolean checkForTimeIntersections(Task newTask) {
              .map(id -> subTasks.get(id))
              .collect(Collectors.toList());
      return  new ArrayList<>(epicSubtasks);
-
-
-
     }
-    @Override
-    public void updateEpic(Epic epic, Epic newEpic) { // обновить Эпик новым Эпиком
+ @Override
+     public void updateEpic(Epic epic, Epic newEpic) { // обновить Эпик новым Эпиком
         int id = epic.getTaskID();
         newEpic.setTaskID(id);
         newEpic.setTypeTask(TypeTask.EPIC);
@@ -164,13 +172,12 @@ public boolean checkForTimeIntersections(Task newTask) {
 
         epics.put(id, newEpic);
     }
+
 @Override
-    public boolean deleteEpicById(int taskID) { // удалить Эпик по id,а так же его подзадачи
+     public boolean deleteEpicById(int taskID) { // удалить Эпик по id,а так же его подзадачи
         int subTaskId = 0;
         Epic epic = null;
         List<Integer> subTasks = new ArrayList<>();
-
-
         if (epics.containsKey(taskID)) {
              epic = epics.get(taskID);
             subTasks = epic.getsubTasksIds();
@@ -184,8 +191,9 @@ public boolean checkForTimeIntersections(Task newTask) {
     epics.remove(taskID);
     return true;
     }
+
 @Override
-    public void computeEpicDataTime (Epic epic, SubTask subTask) {
+    public void computeEpicDataTime(Epic epic, SubTask subTask) {
     long durationEpic =0;
   //  Duration durationEpic = Duration.ZERO;
         if (epic.getDuration() == null) {
@@ -216,7 +224,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         }
     }
 
-    @Override
+@Override
     public void computeEpicStatus(Epic epic) { // логика статуса Эпика
         boolean epicTaskStatusNew = true;
         boolean epicTaskStatusDone = true;
@@ -242,6 +250,7 @@ public boolean checkForTimeIntersections(Task newTask) {
             epic.setStatus(TaskStatus.IN_PROGRESS); // во всех остальных случаях Эпик имеет статус в работе
         }
     }
+
 @Override
     public void addSubTask(SubTask subTask) { // добавить новую подзадачу.
     int id = generateId();
@@ -266,6 +275,7 @@ public boolean checkForTimeIntersections(Task newTask) {
 
     computeEpicStatus(epic);
 }
+
 @Override
     public ArrayList<SubTask> getSubTasks() {
         ArrayList<SubTask> subTasksList = new ArrayList<>();
@@ -274,6 +284,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         }
         return subTasksList;
     }
+
 @Override
     public void deleteSubTask() { // очистить мапу с подзадачами, удалить подазадачи из эпиков и обновить их статусы
         subTasks.clear();
@@ -282,7 +293,6 @@ public boolean checkForTimeIntersections(Task newTask) {
             computeEpicStatus(epic);
         }
     }
-
 
 @Override
     public SubTask getSubTaskbyId(int taskID) { // вывести подзадачу по id
@@ -293,6 +303,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         return subTask;
 
     }
+
     @Override
     public void updateSubTask(SubTask subTask, SubTask newSubTask) { // обновляем поздачу новой подзадачей и обновить статус Епика
         int id = subTask.getTaskID();
@@ -308,6 +319,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         epic.addSubtask(id);
         computeEpicStatus(epic);
     }
+
 @Override
     public boolean deleteSubTaskById(int taskID) { // удалить подзадачу по id, удалить из Эпика + обновить статус
         if (subTasks.containsKey(taskID)) {
@@ -326,12 +338,12 @@ public boolean checkForTimeIntersections(Task newTask) {
         }
         return true;
     }
-    @Override
-   public List<Task> getHistori() {
+
+@Override
+    public List<Task> getHistori() {
         return historyManager.getHistory();
     }
-
-
+    
     @Override
     public List<Task> getOldVersionHistori() {
         return historyManager.getOldVersionHistori();
