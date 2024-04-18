@@ -3,11 +3,14 @@ import model.Task;
 
 import java.util.*;
 
-
 public class InMemoryHistoryManager implements HistoryManager {
+
     private Map<Integer,Node<Task>> custemMap = new HashMap<>();
+
     private List<Task> oldVersionHistori = new ArrayList<>();
+
     private Node<Task> head;
+
     private Node<Task> tail;
 
     @Override
