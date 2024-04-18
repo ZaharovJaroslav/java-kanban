@@ -1,37 +1,53 @@
-package taskTracker.tracker.service;
-import taskTracker.tracker.model.Task;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+package service;
+import model.Task;
 
+import java.util.*;
 
 
 public class InMemoryHistoryManager implements HistoryManager {
-    private Map<Integer,Node<Task>> custemMap = new HashMap<>();
+    private Map<Integer, Node<Task>> custemMap = new HashMap<>();
+    private List<Task> oldVersionHistori = new ArrayList<>();
     private Node<Task> head;
     private Node<Task> tail;
 
-
-@Override
-    public void  add(Task task ) {
-    remove(task.getTaskID());
-    linkLast(task);
+    @Override
+    public Map<Integer, Node<Task>> getCustemMap() {
+        return custemMap;
+    }
+    @Override
+    public Node<Task> getHead() {
+        return head;
+    }
+    @Override
+    public Node<Task> getTail() {
+        return tail;
     }
 
     @Override
-    public void remove(int id){
+    public void add(Task task ) {
+    if (custemMap.isEmpty()) {
+        linkLast(task);
+    } else {
+        oldVersionHistori = getTasks();
+        remove(task.getTaskID());
+        linkLast(task);
+    }
+    }
+
+    @Override
+    public void remove(int id) {
        if (custemMap.containsKey(id)) {
-            removeNode(id);
+           oldVersionHistori = getTasks();
+           removeNode(id);
         }
     }
 
-    private void removeNode(int id){
+    private void removeNode(int id) {
         final Node <Task> node = custemMap.get(id);
-        if(node == head){
+        if (node == head) {
             removeFirst(node);
             custemMap.remove(id);
-        } else if(node == tail){
+        } else if(node == tail) {
             removeLast(node);
             custemMap.remove(id);
         } else {
@@ -41,27 +57,28 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    public void removeFirst(Node <Task> node){
-        if(head.getNext() == null){
+    public void removeFirst(Node<Task> node) {
+        if (head.getNext() == null) {
             head = null;
+            tail = null;
         } else {
             head.getNext().setPrev(null);
             head = head.getNext();
         }
     }
 
-    public void removeLast(Node <Task> node){
+    public void removeLast(Node<Task> node){
         tail.getPrev().setNext(null);
         tail = tail.getPrev();
     }
 
     private void linkLast(Task task){
-        final Node <Task> oldTail = tail;
-        final Node<Task> newNode = new Node<>(task,null, tail);;
+        final Node<Task> oldTail = tail;
+        final Node<Task> newNode = new Node<>(task,null, tail);
         tail = newNode;
 
         custemMap.put(task.getTaskID(), newNode);
-        if(oldTail == null) {
+        if (oldTail == null) {
             head = newNode;
         } else {
             oldTail.setNext(tail);
@@ -71,7 +88,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     private List<Task> getTasks(){
     LinkedList<Task> viewedTasks = new LinkedList<>();
     Node<Task> node = head;
-    while(node != null){
+    while (node != null) {
         viewedTasks.add(node.getData());
         node = node.getNext();
     }
@@ -81,6 +98,10 @@ public class InMemoryHistoryManager implements HistoryManager {
     @Override
     public List<Task> getHistory() {
       return getTasks();
+    }
+    @Override
+    public List<Task> getOldVersionHistori() {
+    return oldVersionHistori;
     }
 }
 
