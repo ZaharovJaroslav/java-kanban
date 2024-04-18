@@ -48,9 +48,9 @@ public class Task {
 
     }
 
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus ,String taskDescription,
+    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription,
                  Duration duration,
-                 LocalDateTime startTime){
+                 LocalDateTime startTime) {
         this.taskID = taskID;
         this.typeTask = typeTask;
         this.taskName = taskName;
