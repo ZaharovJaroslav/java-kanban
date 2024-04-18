@@ -19,14 +19,15 @@ public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksM
 
    // private final Path path = Path.of("resources/back up.csv");
   //  private final File file = new File(String.valueOf(path));
+   final Path path = Path.of("./resources/test.csv");
 
     File file;
 
     @BeforeEach
     void setUp() {
-        Path path = Path.of("./resources/test.csv");
+
         //this.file = new File("./resources/test.csv");
-        this.file = new File(String.valueOf(path));
+        this.file =  new File(String.valueOf(path));
         super.taskManager = new FileBackedTasksManager(file);
     }
 
