@@ -289,7 +289,7 @@ public boolean checkForTimeIntersections(Task newTask) {
 
     @Override
     public SubTask getSubTaskbyId(int taskID) { // вывести подзадачу по id
-        if ( subTasks.containsKey(taskID)) {
+        if (subTasks.containsKey(taskID)) {
             subTask = subTasks.get(taskID);
             historyManager.add(subTask);
         }
