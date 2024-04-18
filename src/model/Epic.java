@@ -18,7 +18,7 @@ public class Epic extends Task {
 
    public Epic(int taskID, TypeTask typeTask, String epicName, TaskStatus epicStatus, String epicDescription,
                LocalDateTime startTime, Duration duration, LocalDateTime endTime)  {
-        super( taskID,typeTask,epicName,epicStatus,epicDescription,startTime,duration,endTime);
+        super(taskID,typeTask,epicName,epicStatus,epicDescription,startTime,duration,endTime);
         this.endTime = endTime;
         subTasksIds = new ArrayList<>();
     }
@@ -33,6 +33,7 @@ public class Epic extends Task {
         super(taskID,taskName,taskDescription);
         this.subTasksIds = new ArrayList<>();
     }
+
     public Epic(int taskID, String taskName, String taskDescription, int IdEpic) {
         super(taskID,taskName,taskDescription);
         this.subTasksIds = new ArrayList<>();
@@ -55,7 +56,7 @@ public class Epic extends Task {
         this.subTasksIds = subTasksIds;
     }
 
-    public void clearSubtasks(ArrayList<Integer> subTasksIds){
+    public void clearSubtasks(ArrayList<Integer> subTasksIds) {
         subTasksIds.clear();
     }
 
