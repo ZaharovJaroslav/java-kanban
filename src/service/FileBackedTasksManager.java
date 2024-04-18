@@ -171,7 +171,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     private void save() {
          try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))) {
-         writer.write (FIRST_LINE );
+         writer.write(FIRST_LINE);
          writer.write("\n");
          saveTasksToFile(writer);
          List<String> ids = new ArrayList<>(); //сохраняем историю просмотров
@@ -338,11 +338,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             }
         }
         if (type == TypeTask.SUBTASK) {
-            return new SubTask( id, type, name, status, description, epicID, startTime, duration, endTime);
+            return new SubTask(id, type, name, status, description, epicID, startTime, duration, endTime);
         }  else if (type == TypeTask.EPIC) {
-            return new Epic( id, type, name, status, description, startTime, duration, endTime);
+            return new Epic(id, type, name, status, description, startTime, duration, endTime);
         } else
-            return new Task( id, type, name, status, description, startTime, duration, endTime);
+            return new Task(id, type, name, status, description, startTime, duration, endTime);
 
     }
 
@@ -415,7 +415,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public Epic getEpicbyId (int taskID) { // вывести эпик по id
+    public Epic getEpicbyId(int taskID) { // вывести эпик по id
         Epic epic = super.getEpicbyId(taskID);
         if (epic != null) {
             save();
@@ -428,6 +428,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         super.updateEpic(epic, newEpic);
         save();
     }
+
     @Override
     public boolean deleteEpicById(int taskID) { // удалить Эпик по id,а так же его подзадачи
         super.deleteEpicById(taskID);
@@ -436,7 +437,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     @Override
-    public void computeEpicStatus(Epic epic){
+    public void computeEpicStatus(Epic epic) {
        super.computeEpicStatus(epic);
        save();
 
@@ -454,6 +455,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         super.deleteSubTask();
         save();
     }
+
     @Override
     public SubTask getSubTaskbyId(int taskID) { // вывести подзадачу по id
        SubTask subTask = super.getSubTaskbyId(taskID);
@@ -475,7 +477,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
        save();
        return true;
     }
-    
+
     @Override
     public List<Task> getHistori() {
         return historyManager.getHistory();
