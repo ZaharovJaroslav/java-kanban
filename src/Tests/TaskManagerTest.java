@@ -111,7 +111,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void test8_getEpics_shouldReturnTheCreatedEpics(){
+    void test8_getEpics_shouldReturnTheCreatedEpics() {
         taskManager.addEpic(epic1);
         List<Epic> listOfEpics = taskManager.getEpics();
 
@@ -154,7 +154,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
     }
 
     @Test
-    void Test12_updateEpics_shouldUpdateTheEpic() {
+    void test12_updateEpics_shouldUpdateTheEpic() {
         taskManager.addEpic(epic1);
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
@@ -339,11 +339,12 @@ abstract class TaskManagerTest<T extends TaskManager> {
         taskManager.addSubTask(subTask2);
 
         LocalDateTime startTime = epic1.getStartTime();
-        if (subTask1.getStartTime().isBefore(subTask2.getStartTime())){
+        if (subTask1.getStartTime().isBefore(subTask2.getStartTime())) {
             assertEquals(startTime, subTask1.getStartTime());
         } else
             assertEquals(startTime, subTask2.getStartTime());
     }
+
     @Test
     void test27_ShouldСheckTheCalculationOfTheEpicEndTime() {
         taskManager.addEpic(epic1);
@@ -354,7 +355,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
         LocalDateTime subTask2EndTime = subTask2.getEndTime();
         LocalDateTime epicEndTime = epic1.getEndTime();
 
-        if (subTask1EndTime.isBefore(subTask2EndTime)){
+        if (subTask1EndTime.isBefore(subTask2EndTime)) {
             assertEquals(subTask2EndTime, epicEndTime);
         } else
             assertEquals(subTask1EndTime, epicEndTime);
