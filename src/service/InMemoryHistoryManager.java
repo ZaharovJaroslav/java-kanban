@@ -26,7 +26,7 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     @Override
-    public void add(Task task ) {
+    public void add(Task task) {
     if (custemMap.isEmpty()) {
         linkLast(task);
     } else {
@@ -45,11 +45,11 @@ public class InMemoryHistoryManager implements HistoryManager {
     }
 
     private void removeNode(int id) {
-        final Node <Task> node = custemMap.get(id);
+        final Node<Task> node = custemMap.get(id);
         if (node == head) {
             removeFirst(node);
             custemMap.remove(id);
-        } else if(node == tail) {
+        } else if (node == tail) {
             removeLast(node);
             custemMap.remove(id);
         } else {
@@ -69,12 +69,12 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    public void removeLast(Node<Task> node){
+    public void removeLast(Node<Task> node) {
         tail.getPrev().setNext(null);
         tail = tail.getPrev();
     }
 
-    private void linkLast(Task task){
+    private void linkLast(Task task) {
         final Node<Task> oldTail = tail;
         final Node<Task> newNode = new Node<>(task,null, tail);
         tail = newNode;
@@ -87,7 +87,7 @@ public class InMemoryHistoryManager implements HistoryManager {
         }
     }
 
-    private List<Task> getTasks(){
+    private List<Task> getTasks() {
     LinkedList<Task> viewedTasks = new LinkedList<>();
     Node<Task> node = head;
     while (node != null) {
