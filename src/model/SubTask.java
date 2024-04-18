@@ -26,7 +26,7 @@ public class SubTask extends Task {
 
     public SubTask(String taskName, String taskDescription, int idEpic) {
         super(taskName, taskDescription);
-        this.idEpic  = idEpic ;
+        this.idEpic  = idEpic;
     }
 
     public SubTask(String taskName, String taskDescription) {
