@@ -64,7 +64,7 @@ public class Task {
 
 
 
-    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription, int idEpic,
+    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription, int idEpic,
                  LocalDateTime startTime,
                  Duration duration,
                  LocalDateTime endTime) {
@@ -93,7 +93,7 @@ public class Task {
         endTime = endTime;
     }
 
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription ) {
+    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription) {
     this.taskID = taskID;
     this.taskName = taskName;
     this.taskDescription = taskDescription;
