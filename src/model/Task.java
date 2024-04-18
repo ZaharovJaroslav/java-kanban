@@ -18,13 +18,11 @@ public class Task {
     private LocalDateTime startTime;
 
 
-
     public Task (TypeTask typeTask, String taskName, String taskDescription) {
         this.typeTask = typeTask;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
     }
-
 
     public Task (TypeTask typeTask, String taskName, String taskDescription, Duration duration ,LocalDateTime startTime) {
         this.typeTask = typeTask;
@@ -35,10 +33,6 @@ public class Task {
     }
 
 
-
- //return new Task( id, type, name, status, description, startTime,duration,endTime
-
-   // Task( id, type, name, status, description, startTime, endTime, duration);
     public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus,String taskDescription, int idEpic,
                  Duration duration,
                  LocalDateTime startTime) {
@@ -54,7 +48,6 @@ public class Task {
 
     }
 
-
     public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription,
                  Duration duration,
                  LocalDateTime startTime ){
@@ -67,8 +60,6 @@ public class Task {
         this.startTime = startTime;
        LocalDateTime endTime = getEndTime();
     }
-
-
 
     public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription, int idEpic,
                  LocalDateTime startTime,
@@ -98,17 +89,8 @@ public class Task {
 
         this.duration = duration;
         this.startTime = startTime;
-         endTime = endTime;
+        endTime = endTime;
     }
-
-
-
-
-
-
-
-
-
 
     public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription ) {
     this.taskID = taskID;
@@ -130,11 +112,7 @@ public class Task {
     }
 
     public Task(String value) {
-
         }
-
-
-
 
     public int getTaskID() {
         return taskID;
@@ -144,7 +122,6 @@ public class Task {
         this.taskID = taskID;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-
     }
 
     public Task(String taskName, String taskDescription) {
@@ -179,9 +156,11 @@ public class Task {
     public String getDescription(){
         return taskDescription;
     }
+
     public TaskStatus getTaskStatus() {
         return taskStatus;
     }
+
      public void setStatus(TaskStatus taskStatus) {
         this.taskStatus = taskStatus;
 
@@ -192,7 +171,7 @@ public class Task {
     }
 
     public LocalDateTime getStartTime() {
-        return  startTime;
+        return startTime;
     }
 
     public LocalDateTime getEndTime() {

@@ -6,12 +6,11 @@ import java.time.LocalDateTime;
 public class SubTask extends Task {
     private int idEpic;
 
-
     public SubTask(TypeTask typeTask, String subTaskName, String SubTaskDescription, Duration duration , LocalDateTime startTime , int idEpic) {
         super(typeTask, subTaskName ,SubTaskDescription,duration,startTime);
         this.idEpic = idEpic;
-
     }
+
     public SubTask(int taskID, TypeTask typeTask, String subTaskName, TaskStatus subTaskStatus, String subTaskDescription, int idEpic,
                    Duration duration,
                    LocalDateTime startTime) {
@@ -25,11 +24,6 @@ public class SubTask extends Task {
         this.idEpic = idEpic;
     }
 
-/*   public SubTask(int taskID, TypeTask typeTask, String subTaskName, TaskStatus subTaskStatus, String subTaskDescription, int idEpic ) {
-        super(taskID,typeTask, subTaskName,subTaskStatus, subTaskDescription, idEpic);
-       this.idEpic = idEpic;
-    }*/
-
     public SubTask(String taskName, String taskDescription, int idEpic) {
         super(taskName, taskDescription);
         this.idEpic  = idEpic ;
@@ -39,14 +33,13 @@ public class SubTask extends Task {
         super(taskName, taskDescription);
     }
 
-
     public SubTask(int taskID, String taskName, String taskDescription) {
         super(taskID,taskName, taskDescription);
     }
 
     public SubTask(int taskID,String taskName, String taskDescription, int idEpic) {
         super(taskID,taskName, taskDescription);
-        this.idEpic  = idEpic ;
+        this.idEpic = idEpic ;
     }
 
     public int getIdEpic() {

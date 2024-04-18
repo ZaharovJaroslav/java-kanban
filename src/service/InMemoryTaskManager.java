@@ -33,7 +33,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         } else if (newTask.getStartTime().isBefore(task.getStartTime()) && newTask.getEndTime().isBefore(task.getStartTime())) {
           result = true;
         } else
-            throw new CollisionTaskException ("Время выполнения задачи пересекается со временем уже существующей " +
+            throw new CollisionTaskException("Время выполнения задачи пересекается со временем уже существующей " +
                     "задачи. Выберите другую дату.");
     }
             return result;
@@ -260,7 +260,7 @@ public boolean checkForTimeIntersections(Task newTask) {
         subTask.setTypeTask(TypeTask.SUBTASK);
         subTask.setTaskID(id);
     }
-    Predicate<Task>checkTime = this::checkForTimeIntersections;
+    Predicate<Task> checkTime = this::checkForTimeIntersections;
     if (!checkTime.test(subTask)) {
         subTasks.put(id, subTask);
     }

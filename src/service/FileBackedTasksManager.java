@@ -76,10 +76,13 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         fileManager.addSubTask(subTask2);*/
    // }
     private final File file;
+
     private static final String FIRST_LINE = "id,type,name,status,description,epic,start_Time,end_Time, duration";
+
     public FileBackedTasksManager(File FILE) {
         this.file = FILE;
     }
+
     public static FileBackedTasksManager loadFromFile(File file) {
         FileBackedTasksManager fileManager = new FileBackedTasksManager(file);
         int maxId = 0;
@@ -166,8 +169,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
 
-    private  void save(){
-         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))){
+    private void save(){
+         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))) {
          writer.write(FIRST_LINE );
          writer.write("\n");
          saveTasksToFile(writer);
@@ -181,7 +184,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         }
     }
 
-    private void saveTasksToFile (BufferedWriter writer) throws IOException {
+    private void saveTasksToFile(BufferedWriter writer) throws IOException {
          for (Task task : tasks.values()) {
              writer.write(toString(task));
              writer.write("\n");
@@ -197,12 +200,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     public static void saveHistoryViews(List<Task> history) { // Метод для записи id просмотренных задач в файл
-         List <Task> taskID = new ArrayList<>(history);
+         List<Task> taskID = new ArrayList<>(history);
          StringBuilder stringBuilder= new StringBuilder();
 
-           for (int i = 0; i< taskID.size(); i++) {
+           for (int i = 0; i < taskID.size(); i++) {
                int id = taskID.get(i).getTaskID();
-               if(  i == taskID.size()-1){
+               if (i == taskID.size() - 1) {
                    stringBuilder.append(Integer.toString(id));
                } else {
                    stringBuilder.append(Integer.toString(id)).append(",");
@@ -210,7 +213,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
            }
     }
     private static List<Integer> historyFromString(String value) {  // Метод для получения id gросмотренных задач из файла
-        List <Integer> taskID = new ArrayList<>();
+        List<Integer> taskID = new ArrayList<>();
         String[] array = value.split(",");
         for (String id: array) {
             taskID.add(Integer.parseInt(id));
@@ -270,7 +273,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     private static Task fromString(String value) { // из String ---> в Task
-        String [] arrays = (value.split(","));
+        String[] arrays = (value.split(","));
         int id = 0;
         TypeTask type = null;
         String name = null;
@@ -281,7 +284,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         Duration duration = null;
         int epicID = 0;
 
-        for (int i = 0; i< arrays.length; i++) {
+        for (int i = 0; i < arrays.length; i++) {
             switch (i) {
                 case 0:
                     id = Integer.parseInt(arrays[i]);
@@ -306,7 +309,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     } else if (arrays[1].equals(" IN_PROGRESS")) {
                         status =  TaskStatus.IN_PROGRESS;
                     } else {
-                        status=  TaskStatus.DONE;
+                        status =  TaskStatus.DONE;
                     }
                 case 4:
                     description = arrays[i];
@@ -334,7 +337,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     break;
             }
         }
-        if (type == TypeTask.SUBTASK){
+        if (type == TypeTask.SUBTASK) {
             return new SubTask( id, type, name, status, description,epicID,startTime,duration,endTime);
         }  else if (type == TypeTask.EPIC) {
             return new Epic( id, type, name, status, description, startTime,duration,endTime);
