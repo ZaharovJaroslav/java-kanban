@@ -12,6 +12,7 @@ import java.util.List;
 public interface TaskManager {
 
     DateTimeFormatter DATA_TIME_FORMAT = DateTimeFormatter.ofPattern("MM.dd.yy HH:mm");
+    
     int getID(Task task);
 
     ArrayList<Task> getPrioritizedTasks();
