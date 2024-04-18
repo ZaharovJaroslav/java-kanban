@@ -34,10 +34,9 @@ public class Epic extends Task {
         this.subTasksIds = new ArrayList<>();
     }
 
-    public Epic(int taskID, String taskName, String taskDescription, int IdEpic) {
+    public Epic(int taskID, String taskName, String taskDescription, int idEpic) {
         super(taskID,taskName,taskDescription);
         this.subTasksIds = new ArrayList<>();
-
     }
 
     public Epic(String taskName, String taskDescription) {
@@ -60,7 +59,7 @@ public class Epic extends Task {
         subTasksIds.clear();
     }
 
-    public void setEndTime (LocalDateTime endTime) {
+    public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
     }
 
