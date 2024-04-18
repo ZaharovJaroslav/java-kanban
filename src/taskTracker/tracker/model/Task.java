@@ -1,5 +1,10 @@
 package taskTracker.tracker.model;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import static taskTracker.tracker.service.TaskManager.DATA_TIME_FORMAT;
+
 public class Task {
 
 
@@ -9,25 +14,109 @@ public class Task {
     private  TaskStatus taskStatus;
     private TypeTask typeTask;
     private  int idEpic;
+    private Duration duration;
+    private LocalDateTime startTime;
 
 
 
-    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus,String taskDescription, int idEpic ) {
+    public Task (TypeTask typeTask, String taskName, String taskDescription) {
+        this.typeTask = typeTask;
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+    }
+
+
+    public Task (TypeTask typeTask, String taskName, String taskDescription, Duration duration ,LocalDateTime startTime) {
+        this.typeTask = typeTask;
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.duration = duration;
+        this.startTime = startTime;
+    }
+
+
+
+ //return new Task( id, type, name, status, description, startTime,duration,endTime
+
+   // Task( id, type, name, status, description, startTime, endTime, duration);
+    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus,String taskDescription, int idEpic,
+                 Duration duration,
+                 LocalDateTime startTime) {
         this.taskID = taskID;
         this.typeTask = typeTask;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
         this.idEpic = idEpic;
+        this.duration = duration;
+        this.startTime = startTime;
+        LocalDateTime endTime = getEndTime();
+
     }
-    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription  ) {
+
+
+    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription,
+                 Duration duration,
+                 LocalDateTime startTime ){
         this.taskID = taskID;
         this.typeTask = typeTask;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskStatus = taskStatus;
-
+        this.duration = duration;
+        this.startTime = startTime;
+       LocalDateTime endTime = getEndTime();
     }
+
+
+
+    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription, int idEpic,
+                 LocalDateTime startTime,
+                 Duration duration,
+                 LocalDateTime endTime){
+        this.taskID = taskID;
+        this.typeTask = typeTask;
+        this.taskName = taskName;
+        this.taskStatus = taskStatus;
+        this.idEpic = idEpic;
+        this.taskDescription = taskDescription;
+
+        this.duration = duration;
+        this.startTime = startTime;
+        endTime = getEndTime();
+    }
+
+    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription,
+                 LocalDateTime startTime,
+                 Duration duration,
+                 LocalDateTime endTime){
+        this.taskID = taskID;
+        this.typeTask = typeTask;
+        this.taskName = taskName;
+        this.taskStatus = taskStatus;
+        this.taskDescription = taskDescription;
+
+        this.duration = duration;
+        this.startTime = startTime;
+         endTime = endTime;
+    }
+
+
+
+
+
+
+
+
+
+
+    public Task (int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus , String taskDescription ) {
+    this.taskID = taskID;
+    this.taskName = taskName;
+    this.taskDescription = taskDescription;
+    }
+
+
 
 
 
@@ -98,12 +187,36 @@ public class Task {
 
      }
 
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public LocalDateTime getStartTime() {
+        return  startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return startTime.plus(duration);
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public void setStartTime (LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+
     @Override
     public String toString() {
-        return "Task{" +
-                "taskName='" + taskName + '\'' +
-                ", taskDescription='" + taskDescription + '\'' +
-                ", taskStatus='" + taskStatus + '\'' +
-                '}';
+        return "Тип задачи: " + typeTask + "\n" +
+                "Название: "  + taskName + "\n" +
+                "Описание: " + taskDescription + "\n"  +
+                "Статус: " + taskStatus + "\n" +
+                "Длительность: " + duration.toHours() + ":" + duration.toMinutesPart() + "\n"  +
+                "Время начала выполнения: " + getStartTime().format(DATA_TIME_FORMAT) + "\n"  +
+                "Дедлайн задачи: " +  getEndTime().format(DATA_TIME_FORMAT);
+
     }
 }
