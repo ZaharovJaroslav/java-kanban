@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 public class SubTask extends Task {
     private int idEpic;
 
-    public SubTask(TypeTask typeTask, String subTaskName, String SubTaskDescription, Duration duration, LocalDateTime startTime, int idEpic) {
+    public SubTask(TypeTask typeTask, String subTaskName, String subTaskDescription, Duration duration, LocalDateTime startTime, int idEpic) {
         super(typeTask,subTaskName,SubTaskDescription,duration,startTime);
         this.idEpic = idEpic;
     }
@@ -39,7 +39,7 @@ public class SubTask extends Task {
 
     public SubTask(int taskID,String taskName, String taskDescription, int idEpic) {
         super(taskID,taskName,taskDescription);
-        this.idEpic = idEpic ;
+        this.idEpic = idEpic;
     }
 
     public int getIdEpic() {
