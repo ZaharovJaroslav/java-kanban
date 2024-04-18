@@ -7,15 +7,16 @@ import java.util.Map;
 public interface HistoryManager {
 
     public void add(Task task);
-    public void remove (int id);
+
+    public void remove(int id);
+
     public List<Task> getHistory();
+
     public List<Task> getOldVersionHistori();
 
     public Map<Integer, Node<Task>> getCustemMap();
 
-
     public Node<Task> getHead();
-
 
     public Node<Task> getTail();
 

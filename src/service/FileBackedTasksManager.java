@@ -2,8 +2,6 @@ package service;
 
 import exceptions.ManagerSaveException;
 import model.*;
-import taskTracker.model.*;
-import taskTracker.tracker.model.*;
 
 import java.io.*;
 import java.time.Duration;
@@ -98,7 +96,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     if (task.getTypeTask() == TypeTask.TASK) {
                        fileManager.tasks.put(task.getTaskID(), task);
                       for (Integer id : fileManager.tasks.keySet()) { // итерируем по id ищем максимальное значение
-                          if (id > maxId){
+                          if (id > maxId) {
                               maxId = id;
                           }
                       }
@@ -114,7 +112,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                                 task.getDuration(),
                                 task.getEndTime()));
                         for (Integer id : fileManager.epics.keySet()) {
-                            if (id > maxId){
+                            if (id > maxId) {
                                 maxId = id;
                             }
                         }
@@ -136,7 +134,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                         SubTask subtask =  fileManager.subTasks.get(task.getTaskID());
                         subtask.setIdEpic(epic.getTaskID());
                         for (Integer id : fileManager.subTasks.keySet()) {
-                            if (id > maxId){
+                            if (id > maxId) {
                                 maxId = id;
                             }
                         }
@@ -169,7 +167,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
     private  void save(){
-         try(BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))){
+         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, UTF_8))){
          writer.write(FIRST_LINE );
          writer.write("\n");
          saveTasksToFile(writer);
@@ -184,15 +182,15 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     }
 
     private void saveTasksToFile (BufferedWriter writer) throws IOException {
-         for (Task task : tasks.values()){
+         for (Task task : tasks.values()) {
              writer.write(toString(task));
              writer.write("\n");
          }
-        for (Epic epic : epics.values()){
+        for (Epic epic : epics.values()) {
             writer.write(toString(epic));
             writer.write("\n");
         }
-        for (SubTask subTask : subTasks.values()){
+        for (SubTask subTask : subTasks.values()) {
             writer.write(toString(subTask));
             writer.write("\n");
         }
@@ -202,7 +200,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
          List <Task> taskID = new ArrayList<>(history);
          StringBuilder stringBuilder= new StringBuilder();
 
-           for (int i = 0; i< taskID.size(); i++){
+           for (int i = 0; i< taskID.size(); i++) {
                int id = taskID.get(i).getTaskID();
                if(  i == taskID.size()-1){
                    stringBuilder.append(Integer.toString(id));
@@ -214,16 +212,16 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     private static List<Integer> historyFromString(String value) {  // Метод для получения id gросмотренных задач из файла
         List <Integer> taskID = new ArrayList<>();
         String[] array = value.split(",");
-        for (String id: array){
+        for (String id: array) {
             taskID.add(Integer.parseInt(id));
         }
         return taskID;
     }
 
-    private String toString(Task task){ ///  Из Task ---> в String
+    private String toString(Task task) { ///  Из Task ---> в String
         String taskToSave;
 
-       if(task.getTypeTask() == TypeTask.TASK){
+       if(task.getTypeTask() == TypeTask.TASK) {
            return taskToSave = task. getTaskID() +
                 "," + task.getTypeTask() +
                 "," + task.getName() +
@@ -271,7 +269,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
        }
     }
 
-    private static Task fromString(String value){ // из String ---> в Task
+    private static Task fromString(String value) { // из String ---> в Task
         String [] arrays = (value.split(","));
         int id = 0;
         TypeTask type = null;
@@ -315,7 +313,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                     break;
 
                 case 5:
-                    if(type == TypeTask.SUBTASK){
+                    if (type == TypeTask.SUBTASK) {
                      epicID = Integer.parseInt(arrays[i]);
                     } else
                         continue;
@@ -353,12 +351,12 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
      return super.getPrioritizedTasks();
     }
     @Override
-    public boolean CheckForTimeIntersections(Task newTask){
-       return super.CheckForTimeIntersections(newTask);
+    public boolean checkForTimeIntersections(Task newTask) {
+       return super.checkForTimeIntersections(newTask);
     }
 
     @Override
-    public void computeEpicDataTime (Epic epic, SubTask subTask) {
+    public void computeEpicDataTime(Epic epic, SubTask subTask) {
         super.computeEpicDataTime(epic,subTask);
     }
 
@@ -378,7 +376,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     @Override
     public Task getTaskbyId(int taskID) { // получить задачу по id
         Task task = super.getTaskbyId(taskID);
-        if(task != null){
+        if (task != null) {
             save();
         }
 
@@ -412,7 +410,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     @Override
     public Epic getEpicbyId (int taskID) { // вывести эпик по id
         Epic epic = super.getEpicbyId(taskID);
-        if(epic != null){
+        if (epic != null) {
             save();
         }
         return epic;
@@ -452,7 +450,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
     @Override
     public SubTask getSubTaskbyId(int taskID) { // вывести подзадачу по id
        SubTask subTask = super.getSubTaskbyId(taskID);
-        if(subTask != null){
+        if (subTask != null) {
             save();
         }
        return subTask;
@@ -470,7 +468,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
        return true;
     }
     @Override
-    public List<Task> getHistori(){
+    public List<Task> getHistori() {
         return historyManager.getHistory();
     }
 }

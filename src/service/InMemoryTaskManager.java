@@ -2,8 +2,6 @@ package service;
 
 import exceptions.CollisionTaskException;
 import model.*;
-import taskTracker.model.*;
-import taskTracker.tracker.model.*;
 
 import java.time.Duration;
 import java.util.*;
@@ -24,7 +22,7 @@ public class InMemoryTaskManager implements TaskManager {
     protected HistoryManager historyManager = Managers.getDefaultHistory();
 
 
-public boolean CheckForTimeIntersections(Task newTask){
+public boolean checkForTimeIntersections(Task newTask) {
     boolean result = false;
 
     for (Task task : getPrioritizedTasks()) {
@@ -47,7 +45,7 @@ public boolean CheckForTimeIntersections(Task newTask){
         return new ArrayList<>(sortedList);
 }
 
-    public int getID(Task task){
+    public int getID(Task task) {
        return task.getTaskID();
     }
 
@@ -62,14 +60,14 @@ public boolean CheckForTimeIntersections(Task newTask){
 @Override
     public void addTask(Task task) { // добавить новую задачу в мапу
         int id = generateId();
-        if(task.getTaskStatus()==null) {
+        if (task.getTaskStatus()==null) {
             task.setTaskID(id);
         }
         task.setStatus(TaskStatus.NEW);
         task.setTypeTask(TypeTask.TASK);
 
-    Predicate<Task> CheckTime = this::CheckForTimeIntersections;
-    if(!CheckTime.test(task)) {
+    Predicate<Task> checkTime = this::checkForTimeIntersections;
+    if(!checkTime.test(task)) {
         tasks.put(id, task);
     }
     }
@@ -88,7 +86,7 @@ public boolean CheckForTimeIntersections(Task newTask){
     }
 @Override
     public Task getTaskbyId(int taskID) { // получить задачу по id
-        if(tasks.containsKey(taskID)){
+        if (tasks.containsKey(taskID)) {
             task = tasks.get(taskID);
             historyManager.add(task);
         }
@@ -99,7 +97,7 @@ public boolean CheckForTimeIntersections(Task newTask){
         int id = task.getTaskID();
         newTask.setTaskID(id);
         deleteTaskById(id);
-        Predicate<Task> CheckTime = this::CheckForTimeIntersections;
+        Predicate<Task> CheckTime = this::checkForTimeIntersections;
         tasks.put(id, newTask);
     }
 @Override
@@ -118,8 +116,8 @@ public boolean CheckForTimeIntersections(Task newTask){
         epic.setTaskID(id);
         epic.setStatus(TaskStatus.NEW);
         epic.setTypeTask(TypeTask.EPIC);
-    Predicate<Task> CheckTime = this::CheckForTimeIntersections;
-    if(!CheckTime.test(epic)) {
+    Predicate<Task> CheckTime = this::checkForTimeIntersections;
+    if (!CheckTime.test(epic)) {
         epics.put(id, epic);
     }
 
@@ -128,7 +126,7 @@ public boolean CheckForTimeIntersections(Task newTask){
 @Override
     public ArrayList<Epic> getEpics() {// Получить все Эпики
         ArrayList<Epic> epicList = new ArrayList<>();
-        for (Integer keyId :epics.keySet()){
+        for (Integer keyId :epics.keySet()) {
             epicList.add(epics.get(keyId));
         }
         return epicList;
@@ -139,8 +137,8 @@ public boolean CheckForTimeIntersections(Task newTask){
         subTasks.clear();
     }
 @Override
-    public Epic getEpicbyId (int taskID) { // вывести эпик по id
-        if(epics.containsKey(taskID)){
+    public Epic getEpicbyId(int taskID) { // вывести эпик по id
+        if (epics.containsKey(taskID)) {
             epic = epics.get(taskID);
             historyManager.add(epic);
         }
@@ -162,8 +160,6 @@ public boolean CheckForTimeIntersections(Task newTask){
         int id = epic.getTaskID();
         newEpic.setTaskID(id);
         newEpic.setTypeTask(TypeTask.EPIC);
-      //  ArrayList<Integer> ids = epic.getsubTasksIds();
-        //newEpic.setSubTasksIds(ids);
         deleteEpicById(id);
 
         epics.put(id, newEpic);
@@ -175,7 +171,7 @@ public boolean CheckForTimeIntersections(Task newTask){
         List<Integer> subTasks = new ArrayList<>();
 
 
-        if (epics.containsKey(taskID)){
+        if (epics.containsKey(taskID)) {
              epic = epics.get(taskID);
             subTasks = epic.getsubTasksIds();
             for (int i = 0; i < subTasks.size(); i++) {
@@ -200,12 +196,12 @@ public boolean CheckForTimeIntersections(Task newTask){
             List <SubTask> idSubtasks =  epic.getsubTasksIds()
                     .stream()
                     .filter(id -> subTasks.containsKey(id))
-                    .map(id ->  getSubTaskbyId(id) )
+                    .map(id ->  getSubTaskbyId(id))
                     .sorted(Comparator.comparing(SubTask::getStartTime))
                     .collect(Collectors.toList());
 
             for (SubTask subtask : idSubtasks) {
-                if(subtask.getDuration() != null) {
+                if (subtask.getDuration() != null) {
                     durationEpic += subtask.getDuration().toMinutes();
                 }
             }
@@ -217,10 +213,6 @@ public boolean CheckForTimeIntersections(Task newTask){
                     epic.setEndTime(idSubtasks.get(i).getEndTime());
                 }
             }
-
-
-
-
         }
     }
 
@@ -234,7 +226,6 @@ public boolean CheckForTimeIntersections(Task newTask){
             SubTask subTask = subTasks.get(subEpicId);
             TaskStatus status = subTask.getTaskStatus();
 
-            //TaskStatus status = subTasks.get(subEpicId ).getTaskStatus();
             if (!(status == TaskStatus.NEW)) {
                 epicTaskStatusNew = false;
             }
@@ -260,7 +251,7 @@ public boolean CheckForTimeIntersections(Task newTask){
         subTask.setTypeTask(TypeTask.SUBTASK);
         subTask.setTaskID(id);
     }
-    Predicate<Task> CheckTime = this::CheckForTimeIntersections;
+    Predicate<Task> CheckTime = this::checkForTimeIntersections;
     if(!CheckTime.test(subTask)) {
         subTasks.put(id, subTask);
     }
@@ -286,7 +277,7 @@ public boolean CheckForTimeIntersections(Task newTask){
 @Override
     public void deleteSubTask() { // очистить мапу с подзадачами, удалить подазадачи из эпиков и обновить их статусы
         subTasks.clear();
-        for(Epic epic : epics.values()) {
+        for (Epic epic : epics.values()) {
             epic.getsubTasksIds().clear();
             computeEpicStatus(epic);
         }
@@ -295,7 +286,7 @@ public boolean CheckForTimeIntersections(Task newTask){
 
 @Override
     public SubTask getSubTaskbyId(int taskID) { // вывести подзадачу по id
-        if(subTasks.containsKey(taskID)){
+        if (subTasks.containsKey(taskID)) {
             subTask = subTasks.get(taskID);
             historyManager.add(subTask);
         }
@@ -311,7 +302,7 @@ public boolean CheckForTimeIntersections(Task newTask){
         newSubTask.setIdEpic(epicId);
         newSubTask.setStatus(TaskStatus.NEW);
         deleteSubTaskById(id);
-        Predicate<SubTask> CheckTime = this::CheckForTimeIntersections;
+        Predicate<SubTask> checkTime = this::checkForTimeIntersections;
         subTasks.put(id, newSubTask);
         Epic epic =  epics.get(newSubTask.getIdEpic());
         epic.addSubtask(id);
