@@ -6,17 +6,13 @@ import java.time.LocalDateTime;
 import static service.TaskManager.DATA_TIME_FORMAT;
 
 public class Task {
-
-
     private int taskID;
     private String taskName;
     private String taskDescription;
     private  TaskStatus taskStatus;
     private TypeTask typeTask;
-    private  int idEpic;
     private Duration duration;
     private LocalDateTime startTime;
-
 
 
     public Task(TypeTask typeTask, String taskName, String taskDescription) {
@@ -33,50 +29,16 @@ public class Task {
         this.startTime = startTime;
     }
 
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription, int idEpic,
-                 Duration duration,
-                 LocalDateTime startTime) {
-        this.taskID = taskID;
-        this.typeTask = typeTask;
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.taskStatus = taskStatus;
-        this.idEpic = idEpic;
-        this.duration = duration;
-        this.startTime = startTime;
-        LocalDateTime endTime = getEndTime();
-
-    }
-
-
     public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription,
-                 Duration duration,
-                 LocalDateTime startTime) {
-        this.taskID = taskID;
-        this.typeTask = typeTask;
-        this.taskName = taskName;
-        this.taskDescription = taskDescription;
-        this.taskStatus = taskStatus;
-        this.duration = duration;
-        this.startTime = startTime;
-        LocalDateTime endTime = getEndTime();
-    }
-
-
-
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription, int idEpic,
                  LocalDateTime startTime,
-                 Duration duration,
-                 LocalDateTime endTime) {
+                 Duration duration) {
         this.taskID = taskID;
         this.typeTask = typeTask;
         this.taskName = taskName;
         this.taskStatus = taskStatus;
-        this.idEpic = idEpic;
         this.taskDescription = taskDescription;
         this.duration = duration;
         this.startTime = startTime;
-        endTime = getEndTime();
     }
 
     public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription,
@@ -92,19 +54,6 @@ public class Task {
         this.startTime = startTime;
         endTime = endTime;
     }
-
-    public Task(int taskID, TypeTask typeTask, String taskName, TaskStatus taskStatus, String taskDescription) {
-    this.taskID = taskID;
-    this.taskName = taskName;
-    this.taskDescription = taskDescription;
-    }
-
-    public void setIdEpic(int idEpic) {
-        this.idEpic = idEpic;
-    }
-
-    public Task(String value) {
-        }
 
     public int getTaskID() {
         return taskID;

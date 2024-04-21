@@ -221,7 +221,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
 
         taskManager.deleteSubTask();
         List<SubTask> listOfSubTasks = taskManager.getSubTasks();
-        List<Integer> subTasksIds = epic1.getsubTasksIds();
+        List<Integer> subTasksIds = epic1.getSubTasksIds();
 
         assertTrue(listOfSubTasks.isEmpty());
         assertTrue(subTasksIds.isEmpty());
@@ -274,7 +274,7 @@ abstract class TaskManagerTest<T extends TaskManager> {
         taskManager.addSubTask(subTask1);
         taskManager.addSubTask(subTask2);
 
-        List<Integer> subTaskIds = epic1.getsubTasksIds();
+        List<Integer> subTaskIds = epic1.getSubTasksIds();
         assertTrue(subTaskIds.contains(subTask1.getTaskID()));
         assertEquals(epic1.getTaskID(), subTask1.getIdEpic());
     }

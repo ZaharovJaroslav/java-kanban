@@ -18,29 +18,5 @@ public class Main {
         taskManage.addTask(task1);
         System.out.println(task1.getEndTime());
 
-    /*
-
-        Task task2 = new Task(TypeTask.TASK, "Task_Name2", " Task_Description2",
-                Duration.ofHours(1).plusMinutes(30),
-                LocalDateTime.of(2024, Month.APRIL,25,3,0));
-        taskManage.addTask(task2);
-
-        SubTask subTask1 = new SubTask(TypeTask.SUBTASK, "SubTask_Name1", " SubTask_Description",
-                Duration.ofHours(1).plusMinutes(30),
-                LocalDateTime.of(2024, Month.APRIL,20,2,0),
-                0);
-        taskManage.addSubTask(subTask1);
-
-        SubTask subTask2 = new SubTask(TypeTask.SUBTASK, "SubTask_Name2", " SubTask_Description2",
-                Duration.ofHours(1).plusMinutes(30),
-                LocalDateTime.of(2024, Month.APRIL,20,2,0),
-                0);
-        taskManage.addSubTask(subTask2);
-
-        SubTask subTask3= new SubTask(TypeTask.SUBTASK, "SubTask_Name3", " SubTask_Description3",
-                Duration.ofHours(1).plusMinutes(30),
-                LocalDateTime.of(2024, Month.APRIL,25,5,0),
-                0);
-        taskManage.addSubTask(subTask3);*/
     }
 }

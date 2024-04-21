@@ -24,12 +24,12 @@ class InMemoryHistoryManagerTest {
       historyManager = Managers.getDefaultHistory();
 
       task1 = new Task(0,TypeTask.TASK, "Task_Name1", TaskStatus.NEW, " Task_Dscription",
-              Duration.ofHours(1).plusMinutes(30),
-              LocalDateTime.of(2024, Month.OCTOBER, 11, 5, 0));
+               LocalDateTime.of(2024, Month.OCTOBER, 11, 5, 0),
+               Duration.ofHours(1).plusMinutes(30));
 
        task2 = new Task(1,TypeTask.TASK, "Task_Name1", TaskStatus.NEW, " Task_Dscription",
-              Duration.ofHours(1).plusMinutes(30),
-              LocalDateTime.of(2024, Month.SEPTEMBER, 11, 5, 0));
+               LocalDateTime.of(2024, Month.SEPTEMBER, 11, 5, 0),
+               Duration.ofHours(1).plusMinutes(30));
 
        epic1 = new Epic(2,"Epic1_Test", "Epic1_Description");
  }
