@@ -191,30 +191,34 @@ public boolean checkForTimeIntersections(Task newTask) {
     @Override
     public void computeEpicDataTime(Epic epic, SubTask subTask) {
     long durationEpic = 0;
-  //  Duration durationEpic = Duration.ZERO;
+
         if (epic.getDuration() == null) {
             epic.setDuration(subTask.getDuration());
             epic.setStartTime(subTask.getStartTime());
             epic.setEndTime(subTask.getEndTime());
         } else {
-            List<SubTask> idSubtasks =  epic.getsubTasksIds()
+            List<SubTask> startTimeIdSubtasks =  epic.getsubTasksIds()
                     .stream()
                     .filter(id -> subTasks.containsKey(id))
-                    .map(id ->  getSubTaskbyId(id))
+                    .map(id -> getSubTaskbyId(id))
                     .sorted(Comparator.comparing(SubTask::getStartTime))
                     .collect(Collectors.toList());
 
-            for (SubTask subtask : idSubtasks) {
+            for (SubTask subtask : startTimeIdSubtasks) {
                 if (subtask.getDuration() != null) {
                     durationEpic += subtask.getDuration().toMinutes();
                 }
             }
-
             epic.setDuration(Duration.ofMinutes(durationEpic));
-            epic.setStartTime(idSubtasks.get(0).getStartTime());
-          for (int i = 0; i < idSubtasks.size(); i++) {
-                if (i == idSubtasks.size() - 1) {
-                    epic.setEndTime(idSubtasks.get(i).getEndTime());
+            epic.setStartTime(startTimeIdSubtasks.get(0).getStartTime());
+
+            List<SubTask> endTimeIdSubtasks = startTimeIdSubtasks.stream()
+                    .sorted(Comparator.comparing(SubTask::getStartTime))
+                    .collect(Collectors.toList());
+
+            for (int i = 0; i < endTimeIdSubtasks.size(); i++) {
+                if (i == endTimeIdSubtasks.size() - 1) {
+                    epic.setEndTime(endTimeIdSubtasks.get(i).getEndTime());
                 }
             }
         }

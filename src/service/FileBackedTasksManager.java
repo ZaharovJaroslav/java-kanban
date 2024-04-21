@@ -6,7 +6,6 @@ import model.*;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,68 +13,17 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
     public static void main(String[] args) {
-        TaskManager fileBackedTasksManager = Managers.getDefaultFileBackedTasks();
 
-           Epic epic1 = new Epic("Epic1_Test", "Epic1_Description");
-           fileBackedTasksManager.addEpic(epic1);
-
-
-      SubTask subTask1 = new SubTask(TypeTask.SUBTASK, "SubTask_Name1", " SubTask_Descriptio4",
-                Duration.ofHours(1).plusMinutes(30),
-                LocalDateTime.of(2024, Month.APRIL, 20, 2, 0),
-                0);
-        fileBackedTasksManager.addSubTask(subTask1);
-
-
-
-   SubTask subTask2 = new SubTask(TypeTask.SUBTASK, "SubTask_Name2", " SubTask_Description2",
-                Duration.ofHours(5).plusMinutes(30),
-                LocalDateTime.of(2024, Month.APRIL, 21, 2, 0),
-                0);
-        fileBackedTasksManager.addSubTask(subTask2);
-
-
-    Task task1 = new Task(TypeTask.TASK, "Task_Name1", " Task_Description1",
-                Duration.ofHours(1).plusMinutes(30),
-                LocalDateTime.of(2024, Month.DECEMBER, 11, 5, 0));
-        fileBackedTasksManager.addTask(task1);
-    Task task2 = new Task(TypeTask.TASK, "Task_Name2", " Task_Description2",
-                Duration.ofHours(1).plusMinutes(30),
-                LocalDateTime.of(2024, Month.DECEMBER, 11, 5, 0));
-        fileBackedTasksManager.addTask(task2);
-
-        fileBackedTasksManager.getTaskbyId(3);
-        fileBackedTasksManager.getTaskbyId(4);
+        FileBackedTasksManager fileBackedTasksManager1 = loadFromFile(new File("tasks.csv"));
+        System.out.println(fileBackedTasksManager1.getTasks());
+        System.out.println();
+        System.out.println(fileBackedTasksManager1.getEpics());
+        System.out.println();
+        System.out.println(fileBackedTasksManager1.getSubTasks());
+        System.out.println();
+        System.out.println();
+        System.out.println(fileBackedTasksManager1.getHistori());
 }
-
-
-
-/*       FileBackedTasksManager fileManager = FileBackedTasksManager.loadFromFile(new File("tasks.csv"));
-
-    ;
-
-       Task task3 = new Task(TypeTask.TASK, "Task_Name3", " Task_Description3",
-                              Duration.ofHours(1).plusMinutes(30),
-                              LocalDateTime.of(2024, Month.APRIL,25,1,0));
-        fileManager.addTask(task3);
-
-        Task task4 = new Task(TypeTask.TASK, "Task_Name4", " Task_Description4",
-                              Duration.ofHours(1).plusMinutes(30),
-                              LocalDateTime.of(2024, Month.APRIL,27,1,0));
-        fileManager.addTask(task4);
-
-         Task task5 = new Task(TypeTask.TASK, "Task_Name4", " Task_Description4",
-                               Duration.ofHours(1).plusMinutes(30),
-                               LocalDateTime.of(2024, Month.APRIL,28,1,0));
-        fileManager.addTask(task4);
-
-        SubTask subTask2 = new SubTask(TypeTask.SUBTASK,"Subtask_Name2"," Subtask_Description2",
-                                       Duration.ofHours(1).plusMinutes(30),
-                                       LocalDateTime.of(2024, Month.APRIL,29,11,0),
-                                       2);// id = 03
-        fileManager.addSubTask(subTask2);*/
-   // }
-
 
     private final File file;
     private static final String FIRST_LINE = "id,type,name,status,description,epic,start_Time,end_Time, duration";
@@ -95,68 +43,64 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 String line = br.readLine();
                 if (line.equals(FIRST_LINE)) { // Если строка содержит поля то пропускаем
                     continue;
-                } else if (line.contains("TASK") || line.contains("EPIC") || line.contains("SUBTASK")) {  // Если же это одна из типов задач, превращаем в Task, и добавляем задачу
-                    Task task = fromString(line);
-                    if (task.getTypeTask() == TypeTask.TASK) {
-                       fileManager.tasks.put(task.getTaskID(), task);
-                      for (Integer id : fileManager.tasks.keySet()) { // итерируем по id ищем максимальное значение
-                          if (id > maxId) {
-                              maxId = id;
-                          }
-                      }
-                        fileManager.taskID = maxId;
-
-                    } else if (task.getTypeTask() == TypeTask.EPIC) {
-                        fileManager.epics.put(task.getTaskID(), new Epic(task.getTaskID(),
-                                task.getTypeTask(),
-                                task.getName(),
-                                task.getTaskStatus(),
-                                task.getDescription(),
-                                task.getStartTime(),
-                                task.getDuration(),
-                                task.getEndTime()));
-                        for (Integer id : fileManager.epics.keySet()) {
+                } else if (line.contains("TASK") || line.contains("EPIC") || line.contains("SUBTASK")) {
+                        Task task = fromString(line);
+                        if (task.getTypeTask().equals(TypeTask.TASK)) { // Если же это одна из типов задач, превращаем в Task, и добавляем задачу
+                        fileManager.tasks.put(task.getTaskID(), task);
+                        for (Integer id : fileManager.tasks.keySet()) {
                             if (id > maxId) {
                                 maxId = id;
                             }
                         }
                         fileManager.taskID = maxId;
-
-                    } else {
-                        fileManager.taskID++;
-                        Epic epic = fileManager.epics.get(task.getIdEpic());
-                        fileManager.subTasks.put(task.getTaskID(),new SubTask(task.getTaskID(),
-                                task.getTypeTask(),
-                                task.getName(),
-                                task.getTaskStatus(),
-                                task.getDescription(),
-                                task.getIdEpic(),
-                                task.getStartTime(),
-                                task.getDuration(),
-                                task.getEndTime()));
-                        epic.addSubtask(task.getTaskID());
-                        SubTask subtask = fileManager.subTasks.get(task.getTaskID());
-                        subtask.setIdEpic(epic.getTaskID());
-                        for (Integer id : fileManager.subTasks.keySet()) {
-                            if (id > maxId) {
-                                maxId = id;
+                        } else if (task.getTypeTask().equals(TypeTask.EPIC)) {
+                            Epic epic = (Epic) task;
+                            fileManager.epics.put(epic.getTaskID(), new Epic(epic.getTaskID(),
+                            epic.getTypeTask(),
+                            epic.getName(),
+                            epic.getTaskStatus(),
+                            epic.getDescription(),
+                            epic.getStartTime(),
+                            epic.getDuration(),
+                            epic.getEndTime()));
+                            for (Integer id : fileManager.epics.keySet()) {
+                                if (id > maxId) {
+                                    maxId = id;
+                                }
                             }
+                            fileManager.taskID = maxId;
+                        } else if (task.getTypeTask().equals(TypeTask.SUBTASK)) {
+                            SubTask subTask = (SubTask) task;
+                            fileManager.taskID++;
+                            Epic epic = fileManager.epics.get(subTask.getIdEpic());
+                            fileManager.subTasks.put(subTask.getTaskID(), new SubTask(subTask.getTaskID(),
+                            subTask.getTypeTask(),
+                            subTask.getName(),
+                            subTask.getTaskStatus(),
+                            subTask.getDescription(),
+                            subTask.getIdEpic(),
+                            subTask.getStartTime(),
+                            subTask.getDuration(),
+                            subTask.getEndTime()));
+                            epic.addSubtask(subTask.getTaskID());
+                            SubTask subtask = fileManager.subTasks.get(subTask.getTaskID());
+                            subtask.setIdEpic(epic.getTaskID());
+                            for (Integer id : fileManager.subTasks.keySet()) {
+                                if (id > maxId) {
+                                    maxId = id;
+                                }
+                            }
+                            fileManager.taskID = maxId + 1;  // если будем создавать новую задачу, id новой задачи будет равен maxId+1;
                         }
-                        fileManager.taskID = maxId + 1;  // если будем создавать новую задачу, id новой задачи будет равен maxId+1;
-                       }
-
-                    } else {
-                    List<Integer> list = new ArrayList<>(historyFromString(line));
-                    List<Task> viewedTasks = new ArrayList<>();
-                    for (Integer el : list) {
-                        if (fileManager.epics.containsKey(el)) {
-                            viewedTasks.add(fileManager.epics.get(el));
-
-                        } else if (fileManager.tasks.containsKey(el)) {
-                            viewedTasks.add(fileManager.tasks.get(el));
-
-                        } else {
-                            viewedTasks.add(fileManager.subTasks.get(el));
+                } else {
+                    List<Integer> idVivedTasks = new ArrayList<>(historyFromString(line));
+                    for (Integer id : idVivedTasks) {
+                        if (fileManager.epics.containsKey(id)) {
+                            fileManager.historyManager.add(fileManager.epics.get(id));
+                        } else if (fileManager.tasks.containsKey(id)) {
+                            fileManager.historyManager.add(fileManager.tasks.get(id));
+                        } else if (fileManager.subTasks.containsKey(id)) {
+                            fileManager.historyManager.add(fileManager.subTasks.get(id));
                         }
                     }
                     break;
@@ -237,39 +181,41 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
                 "," + task.getDuration().toMinutes();
 
        } else if (task.getTypeTask() == TypeTask.EPIC) {
-           if (task.getStartTime() == null) {
-              return taskToSave = task. getTaskID() +
-                       "," + task.getTypeTask() +
-                       "," + task.getName() +
-                       "," + task.getTaskStatus() +
-                       "," + task.getDescription() +
+           Epic epic = (Epic) task;
+           if (epic.getStartTime() == null) {
+              return taskToSave = epic.getTaskID() +
+                       "," + epic.getTypeTask() +
+                       "," + epic.getName() +
+                       "," + epic.getTaskStatus() +
+                       "," + epic.getDescription() +
                        "," + "-" +
                        "," + "-" +
                        "," + "-" +
                        "," + "-";
 
            } else {
-               return taskToSave = task. getTaskID() +
-                       "," + task.getTypeTask() +
-                       "," + task.getName() +
-                       "," + task.getTaskStatus() +
-                       "," + task.getDescription() +
+               return taskToSave = epic.getTaskID() +
+                       "," + epic.getTypeTask() +
+                       "," + epic.getName() +
+                       "," + epic.getTaskStatus() +
+                       "," + epic.getDescription() +
                        "," + "-" +
-                       "," + task.getStartTime().format(DATA_TIME_FORMAT) +
-                       "," + task.getEndTime().format(DATA_TIME_FORMAT) +
-                       "," + task.getDuration().toMinutes();
+                       "," + epic.getStartTime().format(DATA_TIME_FORMAT) +
+                       "," + epic.getEndTime().format(DATA_TIME_FORMAT) +
+                       "," + epic.getDuration().toMinutes();
            }
 
        } else {
-           return taskToSave = task.getTaskID() +
-                   "," + task.getTypeTask() +
-                   "," + task.getName() +
-                   "," + task.getTaskStatus() +
-                   "," + task.getDescription() +
-                   "," + task.getIdEpic() +
-                   "," + task.getStartTime().format(DATA_TIME_FORMAT) +
-                   "," + task.getEndTime().format(DATA_TIME_FORMAT) +
-                   "," + task.getDuration().toMinutes();
+           SubTask subTask = (SubTask) task;
+           return taskToSave = subTask.getTaskID() +
+                   "," + subTask.getTypeTask() +
+                   "," + subTask.getName() +
+                   "," + subTask.getTaskStatus() +
+                   "," + subTask.getDescription() +
+                   "," + subTask.getIdEpic() +
+                   "," + subTask.getStartTime().format(DATA_TIME_FORMAT) +
+                   "," + subTask.getEndTime().format(DATA_TIME_FORMAT) +
+                   "," + subTask.getDuration().toMinutes();
        }
     }
 

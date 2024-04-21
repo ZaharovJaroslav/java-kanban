@@ -99,10 +99,6 @@ public class Task {
     this.taskDescription = taskDescription;
     }
 
-    public int getIdEpic() {
-        return idEpic;
-    }
-
     public void setIdEpic(int idEpic) {
         this.idEpic = idEpic;
     }
@@ -171,7 +167,10 @@ public class Task {
     }
 
     public LocalDateTime getEndTime() {
-        return startTime.plus(duration);
+        if (startTime != null) {
+            return startTime.plus(duration);
+        } else
+            return null;
     }
 
     public void setDuration(Duration duration) {
@@ -193,4 +192,5 @@ public class Task {
                 "Дедлайн задачи: " +  getEndTime().format(DATA_TIME_FORMAT);
 
     }
+
 }
