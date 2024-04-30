@@ -34,7 +34,7 @@ public class HttpTaskServer {
     public HttpTaskServer(TaskManager taskManager) throws IOException {
         this.taskManager = taskManager;
         server = HttpServer.create(new InetSocketAddress("localhost",PORT), 0);
-        server.createContext("/tasks", new handler(taskManager));
+        server.createContext("/tasks", new Handler(taskManager));
     }
 
     public void start() {
@@ -46,10 +46,10 @@ public class HttpTaskServer {
         server.stop(1);
     }
 
-    private static class handler extends BaseHttpHandler implements HttpHandler {
+    private static class Handler extends BaseHttpHandler implements HttpHandler {
         private final TaskManager taskManager;
 
-        public handler(TaskManager taskManager) {
+        public Handler(TaskManager taskManager) {
             this.taskManager = taskManager;
         }
 
@@ -201,9 +201,9 @@ public class HttpTaskServer {
                     sendNotFound(exchange, "Not Found");
                 }
             }
-
-            else
+            else {
                 sendNotFound(exchange, "Incorrect request");
+            }
         }
 
         private void handlerDeleteTasks(HttpExchange exchange, String typTask) throws IOException {
@@ -275,7 +275,7 @@ public class HttpTaskServer {
                     try {
                         taskManager.addTask(task);
                         sendText(exchange,"The task has been created");
-                    } catch (CollisionTaskException exception){
+                    } catch (CollisionTaskException exception) {
                         sendHasInteractions(exchange, "The task to add intersects with the existing one");
                     }
                     return;
@@ -302,7 +302,7 @@ public class HttpTaskServer {
             }
         }
 
-        private void handlerPostUpdateTask(HttpExchange exchange, String[] urlPath ) throws IOException {
+        private void handlerPostUpdateTask(HttpExchange exchange, String[] urlPath) throws IOException {
             Optional<Integer> optionalId = getTaskId(urlPath);
             InputStream inputStream = exchange.getRequestBody();
             String body = new String(inputStream.readAllBytes(), StandardCharsets.UTF_8);
@@ -315,12 +315,12 @@ public class HttpTaskServer {
                 sendNotFound(exchange, "Not Found");
                 return;
             }
-            int TaskIdToUpdate = optionalId.get();
+            int taskIdToUpdate = optionalId.get();
 
             if (urlPath[2].equals("task")) {
                 newTask = gson.fromJson(body, Task.class);
                 try {
-                    taskManager.updateTask(taskManager.getTaskbyId(TaskIdToUpdate), newTask);
+                    taskManager.updateTask(taskManager.getTaskbyId(taskIdToUpdate), newTask);
                     sendText(exchange, "The task has been update");
                 } catch (CollisionTaskException exception) {
                     sendHasInteractions(exchange, "The task to update intersects with the existing one");
@@ -329,7 +329,7 @@ public class HttpTaskServer {
             } else if (urlPath[2].equals("epic")) {
                 newEpic = gson.fromJson(body, Epic.class);
                 try {
-                    taskManager.updateEpic(taskManager.getEpicbyId(TaskIdToUpdate), newEpic);
+                    taskManager.updateEpic(taskManager.getEpicbyId(taskIdToUpdate), newEpic);
                     sendText(exchange, "The epic has been update");
                 } catch (CollisionTaskException exception) {
                     sendHasInteractions(exchange, "The epic to update intersects with the existing one");
@@ -338,7 +338,7 @@ public class HttpTaskServer {
             }  else if (urlPath[2].equals("subtask")) {
                 newSubTask = gson.fromJson(body, SubTask.class);
                 try {
-                    taskManager.updateSubTask(taskManager.getSubTaskbyId(TaskIdToUpdate), newSubTask);
+                    taskManager.updateSubTask(taskManager.getSubTaskbyId(taskIdToUpdate), newSubTask);
                     sendText(exchange, "The subtask has been update");
                 } catch (CollisionTaskException exception) {
                     sendHasInteractions(exchange, "The subtask to update intersects with the existing one");
@@ -348,7 +348,7 @@ public class HttpTaskServer {
 
         private Optional<Integer> getTaskId(String[] urlPath) {
             try {
-                return Optional.of(Integer.parseInt(urlPath [urlPath.length -1].split("=")[1]));
+                return Optional.of(Integer.parseInt(urlPath[urlPath.length - 1].split("=")[1]));
             } catch (NumberFormatException exception) {
                 return Optional.empty();
             }
