@@ -24,7 +24,7 @@ import java.util.Optional;
 public class HttpTaskServer {
     private static final int PORT = 8080;
     private HttpServer server;
-    private static  Gson gson = new Gson();
+    private static  Gson gson;
     TaskManager taskManager;
 
     public HttpTaskServer() throws IOException {
@@ -35,6 +35,7 @@ public class HttpTaskServer {
         this.taskManager = taskManager;
         server = HttpServer.create(new InetSocketAddress("localhost",PORT), 0);
         server.createContext("/tasks", new Handler(taskManager));
+        gson = Managers.getGson();
     }
 
     public void start() {

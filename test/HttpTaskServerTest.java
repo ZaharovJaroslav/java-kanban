@@ -29,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class HttpTaskServerTest {
     private HttpTaskServer httpTaskServer;
     private TaskManager taskManager;
-    private static final Gson gson = new Gson();
+    private static final Gson gson = Managers.getGson();
 
     final Epic epic1 = new Epic("Epic1_Test", "Epic1_Description");
 
@@ -60,7 +60,6 @@ class HttpTaskServerTest {
         taskManager = Managers.getDefault();
         httpTaskServer = new HttpTaskServer(taskManager);
         httpTaskServer.start();
-
     }
 
     @Test
@@ -508,6 +507,9 @@ class HttpTaskServerTest {
         assertEquals(1, tasksFromManager.size());
         assertEquals("SubTask_Name2", tasksFromManager.get(0).getName());
     }
+
+
+
 
     @AfterEach
     public void afterEach() {
