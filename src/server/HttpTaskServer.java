@@ -200,8 +200,7 @@ public class HttpTaskServer {
                 } catch (NoSuchElementException exception) {
                     sendNotFound(exchange, "Not Found");
                 }
-            }
-            else {
+            } else {
                 sendNotFound(exchange, "Incorrect request");
             }
         }
