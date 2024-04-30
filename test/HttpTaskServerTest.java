@@ -507,10 +507,7 @@ class HttpTaskServerTest {
         assertEquals(1, tasksFromManager.size());
         assertEquals("SubTask_Name2", tasksFromManager.get(0).getName());
     }
-
-
-
-
+    
     @AfterEach
     public void afterEach() {
         httpTaskServer.stop();
