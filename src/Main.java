@@ -23,12 +23,5 @@ public class Main {
                 0);
         taskManage.addSubTask(subTask1);
         System.out.println(taskManage.getsEpicSubtasks(epic1));
-
- /*       Task task1 = new Task(TypeTask.TASK, "Task_Name1", " Task_Description");
-        taskManage.addTask(task1);
-        System.out.println(task1.getEndTime());
-*/
-
-
     }
 }
